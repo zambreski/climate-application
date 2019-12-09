@@ -39,6 +39,11 @@ export default class GraphRender extends Component{
       }
     }
 
+
+    /*
+    * This component will fetch the data from the API via ajax rest calls.
+    * Note depending on the data pulled, 
+    */
     componentWillUpdate(newProps)
     {
       var elem = "maxt"
@@ -51,6 +56,8 @@ export default class GraphRender extends Component{
       this.state.isLoaded = false;
       var queryData = "http://data.rcc-acis.org/StnData?sid="+(getAsic(this.props.asicStation)[1])+"&sdate="+this.props.selectedStartDate+"&edate="+this.props.selectedEndDate+"&elems="+elem+"&output=json"
       console.log("This query data: "+queryData)
+
+      //AJAX rest calls
       fetch(queryData)
       .then(res => res.json())
       .then(
@@ -102,6 +109,7 @@ export default class GraphRender extends Component{
         if(this.props.selectedGraphType)
         {
           // For percipitation bar graph
+          // Render the percipitation 
           var object = this.state.items[0];
           var mainTS = new Date(obj[0]).getTime
 
@@ -150,6 +158,7 @@ export default class GraphRender extends Component{
           
         }else{
           // For temperature graph
+          // Render temperature graph
 
           for(var i = 0; i < this.state.items.length; i++) {
             var obj = this.state.items[i];
