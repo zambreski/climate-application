@@ -4,12 +4,11 @@ import SVG from 'react-inlinesvg';
 import kansas from './Kansas_revision.svg';
 import { all } from 'q';
 
+/****
+* This class renders the Kansas map and also updats the map.
+*/
 export default class KansasMap extends Component{
     
-
-    // move to parent class
-
-
     render()
     {
        

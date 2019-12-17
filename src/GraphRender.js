@@ -7,28 +7,32 @@ import {
 import {getAsic} from './Districts';
 import loader from './loader.gif';
 import { CSVLink, CSVDownload } from "react-csv";
+import {getDistrictName} from './Districts';
 
-const myDATA = [
-  {id: '00036', y: 200400, x: 1504121437},
-  {id: '00036', y: 200350, x: 1504121156},
-  {id: '00036', y: 200310, x: 1504120874},
-  {id: '00036', y: 200260, x: 1504120590},
-  {id: '00036', y: 200210, x: 1504120306},
-  {id: '00036', y: 200160, x: 1504120024},
-  {id: '00036', y: 200120, x: 1504119740},
-  {id: '00036', y: 200070, x: 1504119458},
-  {id: '00036', y: 200020, x: 1504119177},
-  {id: '00036', y: 199980, x: 1504118893},
-  {id: '00036', y: 199930, x: 1504118611},
-  {id: '00036', y: 199880, x: 1504118330},
-  {id: '00036', y: 199830, x: 1504118048},
-  {id: '00036', y: 199790, x: 1504117763},
-  {id: '00036', y: 199740, x: 1504117481}
-];
 
 const ONE_DAY = 86400000;
 
+/*
+* This function just formats the date to proper date format.
+* <Returns> A string of a proper format MM-DD-YYYY.</Retutns>
+*/
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+/**
+ * This class renders the graph given the parameters and the input.
+ */
 export default class GraphRender extends Component{
     constructor(props)
     {
@@ -42,7 +46,7 @@ export default class GraphRender extends Component{
 
     /*
     * This component will fetch the data from the API via ajax rest calls.
-    * Note depending on the data pulled, 
+    * Note depending on the data pulled, the data will be change to reflect that.
     */
     componentWillUpdate(newProps)
     {
@@ -83,33 +87,42 @@ export default class GraphRender extends Component{
     render()
     {
       var y_axis = "Temperature (°F)"
+      // The default y axis is temperature.
 
       if(this.props.selectedGraphType)
       {
-        y_axis = "Percipitation (inches)"
+        // Change y axis if switch to precitpitation in props.
+        y_axis = "Precipitation (inches)"
       }
+      
       var data = []
+      // Initialize empty list for data to be renderd
 
       var csvData = [
+        ["Type of Data:", "Average "+y_axis],
+        ["Selected District:", getDistrictName(this.props.selectedDistrict)],
+        ["Generated On:", new Date()],
+        ["",""],
         ["Date", y_axis]
       ]
 
+      // Initialize the metadata for csv data download
+
       for(var i = 0; i < this.state.items.length; i++) {
         var obj = this.state.items[i];
-        csvData.push([new Date(obj[0]), obj[1]])
+        csvData.push([formatDate(new Date(obj[0])), obj[1]])
+        // for each data point push it to the csvData list.
       }
 
-      console.log("DATA: "+csvData);
-
-     // console.log(data)
 
       if(this.state.isLoaded)
       {
+        // Render graphs if data is fully loaded.
 
         if(this.props.selectedGraphType)
         {
-          // For percipitation bar graph
-          // Render the percipitation 
+          // For precipitation bar graph
+          // Render the precipitation 
           var object = this.state.items[0];
           var mainTS = new Date(obj[0]).getTime
 
@@ -137,26 +150,27 @@ export default class GraphRender extends Component{
           }
           
           return(
-                <div>
-                Station: {getAsic(this.props.asicStation)[0]} Data Preview
+              <div>
+                  Station: {getAsic(this.props.asicStation)[0]} Data Preview
+                  <br/>
+                  <br/>
+                  <h5> Average Precipitation for {getDistrictName(this.props.selectedDistrict)} </h5>
                 <XYPlot
-              
-              xType="time"
-              height={300}
-              width= {1100}
-              
-              yDomain={[yDomain.min, yDomain.max]}
-            >
-              <VerticalBarSeriesCanvas className="vertical-bar-series-example" data={data} />
-              <XAxis title={"Dates from "+ this.props.selectedStartDate+" to "+ this.props.selectedEndDate}/>
-              <YAxis title={y_axis}/>
-            </XYPlot>
-            <CSVLink data={csvData}>Download Data</CSVLink>
-            </div>
-              
+                  xType="time"
+                  height={300}
+                  width= {1100}
+                  yDomain={[yDomain.min, yDomain.max]}
+                >
+                  <VerticalBarSeriesCanvas className="vertical-bar-series-example" data={data} />
+                  <XAxis title={"Dates from "+ this.props.selectedStartDate+" to "+ this.props.selectedEndDate}/>
+                  <YAxis title={y_axis}/>
+                </XYPlot>
+                <CSVLink data={csvData}>Download Data</CSVLink>
+              </div>             
            );
           
         }else{
+
           // For temperature graph
           // Render temperature graph
 
@@ -172,6 +186,9 @@ export default class GraphRender extends Component{
           return(
             <div>
              Station: {getAsic(this.props.asicStation)[0]} Data Preview
+             <br/>
+             <br/>
+          <h5> Average Temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
              <XYPlot height={300} width= {1100}  xType="time" title="Average Temperature">        
                      <VerticalGridLines />
                      <HorizontalGridLines />
@@ -185,9 +202,7 @@ export default class GraphRender extends Component{
            );
 
 
-        }
-
-       
+        }  
       }else{
         return(<div><img src={loader} class="img-fluid" /></div>)
       }

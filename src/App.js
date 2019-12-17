@@ -22,7 +22,7 @@ import * as ColStrap from 'react-bootstrap/Col';
 import { thisExpression } from '@babel/types';
 import CurrentWeather from './CurrentWeather';
 import KansasMap from './KansasMap';
-import PercipitationGraph from './PercipitationGraph'
+import GraphController from './GraphController'
 import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
 
@@ -70,7 +70,7 @@ class App extends React.Component{
       <Grid item xs={12} md={12}>
         <Card>
           <CardContent>
-            <PercipitationGraph selectedDistrict={this.state.selectedDistrict}></PercipitationGraph>
+            <GraphController selectedDistrict={this.state.selectedDistrict}></GraphController>
           </CardContent>
         </Card>
       </Grid>
