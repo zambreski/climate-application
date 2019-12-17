@@ -271,7 +271,7 @@ export default class SelectedDistrictCard extends Component{
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error: error
           });
         }
       )
@@ -292,9 +292,9 @@ export default class SelectedDistrictCard extends Component{
 
   render()
   {
-    // Get the current times.
-    var hour = this.date.getHours();
-    var minutes = this.date.getMinutes();
+      // Get the current times.
+      var hour = this.date.getHours();
+      var minutes = this.date.getMinutes();
       var descriptionOfDay = this.getDayIndicator(hour,minutes);
       var twelveHourTime = this.get12HourTimes(hour, minutes);
 
@@ -367,6 +367,4 @@ export default class SelectedDistrictCard extends Component{
             </Card>);
       }
     }
-
-
 }
