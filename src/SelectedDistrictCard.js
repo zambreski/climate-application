@@ -177,13 +177,34 @@ export default class SelectedDistrictCard extends Component{
     var timeArr = timeStamp.split(' ');
     var time = timeArr[1];
     var tempCels = parseFloat(tempArr[2]);
-    var windTemp = parseFloat(tempArr[5]);
     var humidityTemp = parseFloat(tempArr[3]);
-    var wind = (windTemp/0.44704);
-    var precipTem = parseFloat(tempArr[4]);
+    console.log('humidity',tempArr[3]);
+    var windTemp = parseFloat(tempArr[5]);
+    console.log('wind', windTemp);
+    var wind;
+    // if windTemp is not a number...
+    if(isNaN(windTemp)) {
+      console.log("NOT A NUMBER")
+      wind = "Not Available"; 
+    } else {
+      wind = (windTemp/0.44704).toFixed(2);
+    }
+    console.log('wind', wind);
+    var precipTem = parseFloat(tempArr[4]).toFixed(2);
+    // if precipitation is not a number...
+    if(isNaN(precipTem)) {
+      switch(tempArr[4]) {
+        case 'T': 
+          precipTem = 0;
+          break;
+        case 'M':
+        default:
+          precipTem = "Not Available"; 
+      }
+    }
 
 
-    return {"timestamp":time,"temp": Math.trunc(tempCels * (9/5) + 32), "wind": wind.toFixed(2), "humidity": humidityTemp.toFixed(2), "precip":precipTem.toFixed(2)}
+    return {"timestamp":time,"temp": Math.trunc(tempCels * (9/5) + 32), "wind": wind, "humidity": humidityTemp.toFixed(2), "precip":precipTem}
 
   }
 
