@@ -88,7 +88,10 @@ def UpdateDatabases():
 
 # This function retrieves data from the API
 def RetrieveFromAPI():
-    response = api.stationdata.list(body=None, params={'stn':'Colby,Garden City,Hays,Manhattan,Parsons', 'int':'day', 't_start':start_timestamp, 't_end':end_timestamp, 'vars':'TEMP2MAVG,PRECIP' }, headers={})
+    response = api.stationdata.list(body=None,
+    params={'stn':'Colby,Garden City,Hays,Manhattan,Parsons',
+    'int':'day', 't_start':start_timestamp,
+    't_end':end_timestamp, 'vars':'TEMP2MAVG,PRECIP' }, headers={})
     res = response.body
     count = 0
     for line in res.splitlines():
