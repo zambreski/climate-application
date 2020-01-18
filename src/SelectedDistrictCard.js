@@ -110,7 +110,17 @@ export default class SelectedDistrictCard extends Component{
     var seconds = this.date.getSeconds();
     this.seconds = seconds < 10 ? "0" + seconds : seconds;
     
-    this.dateString =  this.year.toString()+this.month.toString()+this.day.toString();
+    this.dateString =  this.year.toString()+this.month.toString()+this.day.toString() +this.hours.toString() +this.minutes.toString() +this.seconds.toString();
+    
+    // Get previous hour time
+    var prevD = new Date();
+    prevD.setHours(prevD.getHours() - 1)
+    this.datePrev  = new Date(prevD.getTime() - (prevD.getTimezoneOffset() * 60000)).toISOString().slice(-24).replace(/\D/g,'').slice(0, 14);
+    
+    
+    /*
+     Get previous
+    */
 
     this.state = {
       error: null,
@@ -257,9 +267,9 @@ export default class SelectedDistrictCard extends Component{
   {
     this.state.isLoaded = false;
     this.items = [];
-
+    console.log(this.dateString)
     var station = getDistrictName(this.props.selectedDistrict);
-    var queryData = "http://mesonet.k-state.edu/rest/stationdata/?stn="+station+"&int=5min&t_start="+this.dateString+"000000&t_end="+this.dateString+"235959&vars=TEMP2MAVG,WSPD10MAVG,RELHUM10MAVG,PRECIP"
+    var queryData = "http://mesonet.k-state.edu/rest/stationdata/?stn="+station+"&int=5min&t_start="+this.datePrev+"&t_end="+this.dateString+"&vars=TEMP2MAVG,WSPD10MAVG,RELHUM10MAVG,PRECIP"
       
       console.log(queryData);
       fetch(queryData) //AJAX Rest call.
@@ -268,7 +278,6 @@ export default class SelectedDistrictCard extends Component{
         (result) => {
 
           var data = this.getCurrentData(result)
-
 
           if(Number.isNaN(data["temp"]))
           {

@@ -92,6 +92,7 @@ def RetrieveFromAPI():
     params={'stn':'Colby,Garden City,Hays,Manhattan,Parsons',
     'int':'day', 't_start':start_timestamp,
     't_end':end_timestamp, 'vars':'TEMP2MAVG,PRECIP' }, headers={})
+    print(start_timestamp,end_timestamp)
     res = response.body
     count = 0
     for line in res.splitlines():
