@@ -21,11 +21,11 @@ import * as RowStrap from 'react-bootstrap/Row';
 import * as ColStrap from 'react-bootstrap/Col';
 import { thisExpression } from '@babel/types';
 import CurrentWeather from './CurrentWeather';
-import KansasMap from './KansasMap';
+import KansasMap from './KansasMap2';
 import GraphController from './GraphController'
 import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
-
+//import CanvasJSReact from './canvasjs.react';
 
 
 class App extends React.Component{

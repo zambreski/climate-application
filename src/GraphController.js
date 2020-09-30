@@ -29,7 +29,7 @@ import {
 } from '@material-ui/pickers';
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { getAsic } from './Districts';
-import GraphRender from './GraphRender'
+import GraphRender from './GraphRender2'
 
 
 
@@ -147,7 +147,7 @@ export default class GraphController extends Component {
   }
 
   /***
-  * This method handles the change in the graph type (average temperature and percipitation).
+  * This method handles the change in the graph type (average temperature and precipitation).
   */
   handleChangeGraphType(item) {
     console.log(item.target.checked);

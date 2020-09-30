@@ -194,13 +194,14 @@ export default class SelectedDistrictCard extends Component{
     var wind;
     // if windTemp is not a number...
     if(isNaN(windTemp)) {
-      console.log("NOT A NUMBER")
+      console.log("Wind is NOT A NUMBER")
       wind = "Not Available"; 
     } else {
       wind = (windTemp/0.44704).toFixed(2);
     }
     console.log('wind', wind);
-    var precipTem = parseFloat(tempArr[4]).toFixed(2);
+	// mm to inches
+    var precipTem = parseFloat(tempArr[4]).toFixed(2)/25.4;
     // if precipitation is not a number...
     if(isNaN(precipTem)) {
       switch(tempArr[4]) {
@@ -214,7 +215,7 @@ export default class SelectedDistrictCard extends Component{
     }
 
 
-    return {"timestamp":time,"temp": Math.trunc(tempCels * (9/5) + 32), "wind": wind, "humidity": humidityTemp.toFixed(2), "precip":precipTem}
+    return {"timestamp":time,"temp": Math.trunc(tempCels * (9/5) + 32), "wind": wind, "humidity": humidityTemp.toFixed(0), "precip":precipTem}
 
   }
 
@@ -283,6 +284,7 @@ export default class SelectedDistrictCard extends Component{
           {
             // If data is NaN then recursively call it.
             this.restGetCall() 
+			console.log("failed")
 
           }else{
 
@@ -341,10 +343,16 @@ export default class SelectedDistrictCard extends Component{
       const { error, isLoaded, items } = this.state;
       var selectDNum = this.props.selectedDistrict;
 
-      
-      this.restGetCall();
-      // Get Rest call
-
+      console.log(isLoaded)
+		
+	  if(!isLoaded)
+	  {
+		  console.log('CALLING')
+		  this.restGetCall();
+			// Get Rest call
+	  }
+	  
+	  console.log(isLoaded)
 
       if (error)
       {
@@ -387,10 +395,10 @@ export default class SelectedDistrictCard extends Component{
                       
                     </div>
                     <div class="humidity">
-                    <span>Humidity: {data["humidity"]}%</span>
+                    <span>Humidity: {data["humidity"]} %</span>
                     </div>
                     <div class="precipitation">
-                    <span>Precipitation: {data["precip"]} mm</span>
+                    <span>Precipitation: {data["precip"]} in</span>
                     </div>
                 </div>
               </Card.Body>

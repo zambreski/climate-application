@@ -50,5 +50,5 @@ export interface DatePickerViewsProps extends BaseDatePickerProps {
 }
 export declare type DatePickerProps = WithPureInputProps & DatePickerViewsProps;
 export declare type KeyboardDatePickerProps = WithKeyboardInputProps & DatePickerViewsProps;
-export declare const DatePicker: import("react").FunctionComponent<DatePickerProps>;
-export declare const KeyboardDatePicker: import("react").FunctionComponent<KeyboardDatePickerProps>;
+export declare const DatePicker: import("react").FC<DatePickerProps>;
+export declare const KeyboardDatePicker: import("react").FC<KeyboardDatePickerProps>;

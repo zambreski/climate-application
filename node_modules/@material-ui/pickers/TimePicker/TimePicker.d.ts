@@ -21,5 +21,5 @@ export interface TimePickerViewsProps extends BaseTimePickerProps {
 }
 export declare type TimePickerProps = WithPureInputProps & TimePickerViewsProps;
 export declare type KeyboardTimePickerProps = WithKeyboardInputProps & TimePickerViewsProps;
-export declare const TimePicker: import("react").FunctionComponent<TimePickerProps>;
-export declare const KeyboardTimePicker: import("react").FunctionComponent<KeyboardTimePickerProps>;
+export declare const TimePicker: import("react").FC<TimePickerProps>;
+export declare const KeyboardTimePicker: import("react").FC<KeyboardTimePickerProps>;

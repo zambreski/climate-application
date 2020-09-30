@@ -30,4 +30,3 @@ export default class KansasMap extends Component{
         
     }
 }
-

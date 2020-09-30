@@ -4,4 +4,4 @@ import { MaterialUiPickersDate } from '../typings/date';
 export interface WithUtilsProps {
     utils: IUtils<MaterialUiPickersDate>;
 }
-export declare const withUtils: () => <P extends WithUtilsProps>(Component: React.ComponentType<P>) => React.FunctionComponent<Pick<P, Exclude<keyof P, "utils">>>;
+export declare const withUtils: () => <P extends WithUtilsProps>(Component: React.ComponentType<P>) => React.SFC<Pick<P, Exclude<keyof P, "utils">>>;

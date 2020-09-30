@@ -29,10 +29,16 @@ exports.YearSelection = function (_a) {
     var selectedYearRef = React.useRef(null);
     React.useEffect(function () {
         if (selectedYearRef.current && selectedYearRef.current.scrollIntoView) {
-            selectedYearRef.current.scrollIntoView({
-                block: currentVariant === 'static' ? 'nearest' : 'center',
-                behavior: animateYearScrolling ? 'smooth' : 'auto',
-            });
+            try {
+                selectedYearRef.current.scrollIntoView({
+                    block: currentVariant === 'static' ? 'nearest' : 'center',
+                    behavior: animateYearScrolling ? 'smooth' : 'auto',
+                });
+            }
+            catch (e) {
+                // call without arguments in case when scrollIntoView works improperly (e.g. Firefox 52-57)
+                selectedYearRef.current.scrollIntoView();
+            }
         }
     }, []); // eslint-disable-line
     var currentYear = utils.getYear(date);

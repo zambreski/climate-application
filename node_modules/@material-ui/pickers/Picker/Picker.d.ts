@@ -4,12 +4,12 @@ import { MaterialUiPickersDate } from '../typings/date';
 import { BaseTimePickerProps } from '../TimePicker/TimePicker';
 import { BaseDatePickerProps } from '../DatePicker/DatePicker';
 declare const viewsMap: {
-    year: React.FunctionComponent<import("../views/Year/YearView").YearSelectionProps>;
-    month: React.FunctionComponent<import("../views/Month/MonthView").MonthSelectionProps>;
-    date: React.ComponentType<Pick<React.PropsWithChildren<Pick<import("../views/Calendar/Calendar").CalendarProps, "classes" | "theme" | "onChange" | "date" | "onMonthChange" | "leftArrowIcon" | "rightArrowIcon" | "leftArrowButtonProps" | "rightArrowButtonProps" | "minDate" | "maxDate" | "disableFuture" | "disablePast" | "shouldDisableDate" | "renderDay" | "allowKeyboardControl" | "loadingIndicator">>, "children" | "onChange" | "date" | "onMonthChange" | "leftArrowIcon" | "rightArrowIcon" | "leftArrowButtonProps" | "rightArrowButtonProps" | "minDate" | "maxDate" | "disableFuture" | "disablePast" | "shouldDisableDate" | "renderDay" | "allowKeyboardControl" | "loadingIndicator"> & import("@material-ui/core/styles").StyledComponentProps<"transitionContainer" | "progressContainer" | "week">>;
-    hours: React.FunctionComponent<import("../views/Clock/ClockView").TimePickerViewProps>;
-    minutes: React.FunctionComponent<import("../views/Clock/ClockView").TimePickerViewProps>;
-    seconds: React.FunctionComponent<import("../views/Clock/ClockView").TimePickerViewProps>;
+    year: React.FC<import("../views/Year/YearView").YearSelectionProps>;
+    month: React.FC<import("../views/Month/MonthView").MonthSelectionProps>;
+    date: React.ComponentType<Pick<React.PropsWithChildren<Pick<import("../views/Calendar/Calendar").CalendarProps, "classes" | "theme" | "onChange" | "date" | "onMonthChange" | "leftArrowIcon" | "rightArrowIcon" | "leftArrowButtonProps" | "rightArrowButtonProps" | "minDate" | "maxDate" | "disablePast" | "disableFuture" | "renderDay" | "allowKeyboardControl" | "shouldDisableDate" | "loadingIndicator">>, "children" | "onChange" | "date" | "onMonthChange" | "leftArrowIcon" | "rightArrowIcon" | "leftArrowButtonProps" | "rightArrowButtonProps" | "minDate" | "maxDate" | "disablePast" | "disableFuture" | "renderDay" | "allowKeyboardControl" | "shouldDisableDate" | "loadingIndicator"> & import("@material-ui/core/styles").StyledComponentProps<"transitionContainer" | "progressContainer" | "week">>;
+    hours: React.FC<import("../views/Clock/ClockView").TimePickerViewProps>;
+    minutes: React.FC<import("../views/Clock/ClockView").TimePickerViewProps>;
+    seconds: React.FC<import("../views/Clock/ClockView").TimePickerViewProps>;
 };
 export declare type PickerView = keyof typeof viewsMap;
 export declare type ToolbarComponentProps = BaseDatePickerProps & BaseTimePickerProps & {

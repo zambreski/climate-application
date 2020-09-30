@@ -48,41 +48,40 @@ export default class GraphRender extends Component{
     * This component will fetch the data from the API via ajax rest calls.
     * Note depending on the data pulled, the data will be change to reflect that.
     */
-    componentWillUpdate(newProps)
-    {
-      var elem = "maxt"
-      if(this.props.selectedGraphType)
-      {
-        elem="pcpn"
-      }
+	 
+		componentDidUpdate(newProps)
+		{
+		  var elem = "maxt"
+		  if(this.props.selectedGraphType)
+		  {
+			elem="pcpn"
+		  }
 
-      this.state.items = {}
-      this.state.isLoaded = false;
-      var queryData = "http://data.rcc-acis.org/StnData?sid="+(getAsic(this.props.asicStation)[1])+"&sdate="+this.props.selectedStartDate+"&edate="+this.props.selectedEndDate+"&elems="+elem+"&output=json"
-      console.log("This query data: "+queryData)
-
-      //AJAX rest calls
-      fetch(queryData)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.data
-          });       
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-      
-    }
-
-   
-
+		  this.state.items = {}
+		  this.state.isLoaded = false;
+		  var queryData = "http://data.rcc-acis.org/StnData?sid="+(getAsic(this.props.asicStation)[1])+"&sdate="+this.props.selectedStartDate+"&edate="+this.props.selectedEndDate+"&elems="+elem+"&output=json"
+		  console.log("This query data: "+queryData)
+		 
+		  //AJAX rest calls
+		  fetch(queryData)
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  this.setState({
+				isLoaded: true,
+				items: result.data
+			  });       
+			},
+			(error) => {
+			  this.setState({
+				isLoaded: true,
+				error
+			  });
+			}
+		  )
+		  console.log(this.isLoaded)
+		}
+	
 
     render()
     {
@@ -114,7 +113,7 @@ export default class GraphRender extends Component{
         // for each data point push it to the csvData list.
       }
 
-
+	  console.log(this.state.isLoaded)
       if(this.state.isLoaded)
       {
         // Render graphs if data is fully loaded.

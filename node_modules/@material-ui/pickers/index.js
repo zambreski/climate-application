@@ -1,14 +1,11 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var DatePicker_1 = require("./DatePicker");
-exports.DatePicker = DatePicker_1.DatePicker;
-exports.KeyboardDatePicker = DatePicker_1.KeyboardDatePicker;
-var TimePicker_1 = require("./TimePicker");
-exports.TimePicker = TimePicker_1.TimePicker;
-exports.KeyboardTimePicker = TimePicker_1.KeyboardTimePicker;
-var DateTimePicker_1 = require("./DateTimePicker");
-exports.DateTimePicker = DateTimePicker_1.DateTimePicker;
-exports.KeyboardDateTimePicker = DateTimePicker_1.KeyboardDateTimePicker;
+__export(require("./DatePicker"));
+__export(require("./TimePicker"));
+__export(require("./DateTimePicker"));
 var Calendar_1 = require("./views/Calendar/Calendar");
 exports.Calendar = Calendar_1.default;
 var Day_1 = require("./views/Calendar/Day");
