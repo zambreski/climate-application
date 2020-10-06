@@ -69,8 +69,11 @@ class App extends React.Component{
       </Grid>
       <Grid item xs={12} md={12}>
         <Card>
+		
           <CardContent>
             <GraphController selectedDistrict={this.state.selectedDistrict}></GraphController>
+			<canvas id="myChart" width="800" height="200"></canvas>
+
           </CardContent>
         </Card>
       </Grid>

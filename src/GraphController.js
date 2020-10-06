@@ -102,32 +102,47 @@ const useStyles = makeStyles(theme => ({
 
 
 
+// Initalize bottom line plot
 
 export default class GraphController extends Component {
+  
   constructor(props) {
     super(props);
-    var today = new Date();
+    
+    // Today's date
+    var today = new Date() ;
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-
-
     today = mm + '/' + dd + '/' + yyyy;
     var tdate = yyyy + "-" + mm + "-" + dd;
+    
+    console.log(today)
+    
+    // Starting date 7-days previous
+    var yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 7)
+    var dd_7 = String(yesterday.getDate()).padStart(2, '0');
+    var mm_7 = String(yesterday.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy_7 = yesterday.getFullYear();  
+    yesterday = mm_7 + '/' + dd_7 + '/' + yyyy_7;
+    var starting = yyyy_7 + "-" + mm_7 + "-" + dd_7;
+    
 
     this.state = {
       selectedTypeFrequency: "Weekly",
       selectedGraphType: false,
-      selectedStartDate: today,
+      selectedStartDate: yesterday,
       selectedEndDate: today,
-      sdate: tdate,
+      sdate: starting,
       edate: tdate,
       isValidStartDate: true,
       error: null,
       isLoaded: false,
       data: [],
       items: {},
-      asicStation: ""
+      asicStation: "",
+	  idChange: false
     }
 
 
@@ -135,7 +150,10 @@ export default class GraphController extends Component {
     this.handleChangeGraphType = this.handleChangeGraphType.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+      
   }
+  
+ 
 
   /***
   * This method handles the change in the frequency of the UI element of frequency.
@@ -154,6 +172,7 @@ export default class GraphController extends Component {
     this.setState({ selectedGraphType: item.target.checked });
   }
 
+
   handleChangeStartDateEvent(item) {
     var date = new Date(item);
     var dd = String(date.getDate()).padStart(2, '0');
@@ -164,6 +183,7 @@ export default class GraphController extends Component {
 
     this.setState({ selectedStartDate: date });
   }
+
 
   checkThisStartDate(date) {
 
@@ -186,6 +206,7 @@ export default class GraphController extends Component {
     return true;
   }
 
+
   checkThisEndDate(date) {
     date = new Date(date);
     date.setHours(0, 0, 0, 0);
@@ -204,6 +225,7 @@ export default class GraphController extends Component {
 
     return true;
   }
+
 
   handleChangeStartDate(item) {
     var date = new Date(item);
@@ -237,7 +259,9 @@ export default class GraphController extends Component {
     this.setState({ isValidStartDate: true });
     this.setState({ selectedStartDate: item })//
     this.setState({ sdate: yyyy + "-" + mm + "-" + dd })
+	this.setState({ idChange: true})
   }
+
 
   handleChangeEndDate(item) {
     var date = new Date(item);
@@ -253,10 +277,12 @@ export default class GraphController extends Component {
     this.setState({ edate: yyyy + "-" + mm + "-" + dd })
   }
 
+
+
   render() {
 
     if (!this.props.selectedDistrict) {
-      return "Select a a distict to view its data.";
+      return "Select a district to view its data.";
     }
 
 
@@ -267,8 +293,10 @@ export default class GraphController extends Component {
 
       data1.push({ x: new Date(obj[0]), y: obj[1] });
     }
-
+	
+	console.log(data1)
     console.log("type: " + this.state.selectedTypeFrequency)
+	
     return (
       <div className="Graph">
 
@@ -342,9 +370,8 @@ export default class GraphController extends Component {
         </form>
 
         {/* Render graph */}
-        <GraphRender selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType}>
+        <GraphRender selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} >
         </GraphRender>
-
 
       </div>
     );

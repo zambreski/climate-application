@@ -112,9 +112,9 @@ export default class SelectedDistrictCard extends Component{
     
     this.dateString =  this.year.toString()+this.month.toString()+this.day.toString() +this.hours.toString() +this.minutes.toString() +this.seconds.toString();
     
-    // Get previous hour time
+    // Get previous two hours of time
     var prevD = new Date();
-    prevD.setHours(prevD.getHours() - 1)
+    prevD.setHours(prevD.getHours() - 2)
     this.datePrev  = new Date(prevD.getTime() - (prevD.getTimezoneOffset() * 60000)).toISOString().slice(-24).replace(/\D/g,'').slice(0, 14);
     
     
@@ -183,23 +183,23 @@ export default class SelectedDistrictCard extends Component{
 
     var tempArr = tempLine.split(',');
     var timeStamp = tempArr[0];
-    console.log("The time is: "+timeStamp)
+    //console.log("The time is: "+timeStamp)
     var timeArr = timeStamp.split(' ');
     var time = timeArr[1];
     var tempCels = parseFloat(tempArr[2]);
     var humidityTemp = parseFloat(tempArr[3]);
-    console.log('humidity',tempArr[3]);
+    //console.log('humidity',tempArr[3]);
     var windTemp = parseFloat(tempArr[5]);
-    console.log('wind', windTemp);
+    //console.log('wind', windTemp);
     var wind;
     // if windTemp is not a number...
     if(isNaN(windTemp)) {
-      console.log("Wind is NOT A NUMBER")
+      //console.log("Wind is NOT A NUMBER")
       wind = "Not Available"; 
     } else {
       wind = (windTemp/0.44704).toFixed(2);
     }
-    console.log('wind', wind);
+    //console.log('wind', wind);
 	// mm to inches
     var precipTem = parseFloat(tempArr[4]).toFixed(2)/25.4;
     // if precipitation is not a number...

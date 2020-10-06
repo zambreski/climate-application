@@ -66,6 +66,7 @@ export default class GraphRender extends Component{
       }
     }
 	
+
     /*
     * This component will fetch the data from the API via ajax rest calls.
     * Note depending on the data pulled, the data will be change to reflect that.
@@ -125,19 +126,12 @@ export default class GraphRender extends Component{
 			}
 		  )
 		  }	
+		  
 		}
 	
 	
     render()
     {
-		
-	  var myChart;
-	  
-	  // if the chart is not undefined (e.g. it has been created)
-      // then destory the old one so we can create a new one later
-      if (myChart) {
-        myChart.destroy();
-      }
 
 	  //console.log(this.state.items)
       var y_axis = "Temperature (°F)"
@@ -148,8 +142,6 @@ export default class GraphRender extends Component{
         // Change y axis if switch to precitpitation in props.
         y_axis = "Precipitation (inches)"
       }
-	  
-	  console.log('Check',myChart)
       
       var data = []
       // Initialize empty list for data to be renderd
@@ -171,29 +163,43 @@ export default class GraphRender extends Component{
       }
 	  
 
-	  // Render graphs if data is fully loaded.
+	  
       if(this.state.isLoaded)
       {
-        // For precipitation bar graph
-        // Render the precipitation 
+        // Render graphs if data is fully loaded.
+
         if(this.props.selectedGraphType)
         {
-		  
+          // For precipitation bar graph
+          // Render the precipitation 
           var object = this.state.items[0];
           var mainTS = new Date(obj[0]).getTime
 
           for(var i = 0; i < this.state.items.length; i++) {
             var obj = this.state.items[i];
-			var dsplit = obj[0] + ":00:00:00:00"
             if(obj[1] != 'M' || obj[1] != 'T')
-				{
-				  data.push({x: new Date(dsplit), y: obj[1]});
-				}
+            {
+              var timestamp = new Date(obj[0]).getTime
+
+              data.push({x0: (ONE_DAY * (i+1)), x: (ONE_DAY * (i+1)), y: obj[1]});
             }
-			
-			console.log(data)
+
+            var yDomain =data.reduce(
+              (res, row) => {
+                return {
+                  max: Math.max(res.max, row.y),
+                  min: Math.min(res.min, row.y)
+                };
+              },
+              {max: -Infinity, min: Infinity}
+            );
+
+            data.map(el => ({x0: el.x0 + mainTS, x: el.x + mainTS, y: el.y}));
+            
+          }
 		  
-		    var ctx = document.getElementById('myChart');
+		   var ctx = document.getElementById('myChart');
+
 			var myChart = new Chart(ctx, {
 			 type: 'bar',
 			 data: {
@@ -230,12 +236,10 @@ export default class GraphRender extends Component{
 					}]
 			}
 		}
-		
 			 
 			})
 		  
-	      var chartExists = true;
-		  console.log('Check',chartExists)
+	
        
           return(
               <div>
@@ -243,7 +247,16 @@ export default class GraphRender extends Component{
                   <br/>
                   <br/>
                   <h5> Average Precipitation for {getDistrictName(this.props.selectedDistrict)} </h5>
-                
+                <XYPlot
+                  xType="time"
+                  height={300}
+                  width= {1100}
+                  yDomain={[yDomain.min, yDomain.max]}
+                >
+                  <VerticalBarSeriesCanvas className="vertical-bar-series-example" data={data} />
+                  <XAxis title={"Dates from "+ this.props.selectedStartDate+" to "+ this.props.selectedEndDate}/>
+                  <YAxis title={y_axis}/>
+                </XYPlot>
                 <CSVLink data={csvData}>Download Data</CSVLink>
               </div>             
            );
@@ -266,13 +279,10 @@ export default class GraphRender extends Component{
             
           }
 		  
-		  if (myChart) {
-				myChart.destroy();
-			     }
-		  
 		  console.log(data)
 		  
-		    var ctx = document.getElementById('myChart');
+		  var ctx = document.getElementById('myChart');
+
 			var myChart = new Chart(ctx, {
 			 type: 'line',
 			 data: {
@@ -295,7 +305,7 @@ export default class GraphRender extends Component{
 					scaleLabel: {
 						display: true,
 						labelString: 'Date',
-						fontSize: 20,
+						fontSize: 14,
 						fontStyle:'bold',
 					  }
 				}],
@@ -307,10 +317,10 @@ export default class GraphRender extends Component{
 						fontStyle:'bold',
 					  }
 					}]
-			      }
-		        }			 
+			}
+		}
+			 
 			})
-			
 				
           return(
 
@@ -318,7 +328,61 @@ export default class GraphRender extends Component{
              Station: {getAsic(this.props.asicStation)[0]} Data Preview
              <br/>
              <br/>
-             <h5> Average Temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
+          <h5> Average Temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
+			
+
+			 <XYPlot height={300} width= {1100}  margin={{top: 10, left: 60, bottom: 70, right: 10}}
+              xType="time" title="Average Temperature BLAHHHHH">        
+                     <VerticalGridLines />
+                     <HorizontalGridLines />
+                     <XAxis
+					   
+					   tickFormat={(d: Date) => getFormattedDate(d)}
+					   style={{
+						  text: {fontSize: 14}
+						}}
+					 />
+                     
+					 <YAxis
+					 style={{
+						  text: { fontSize: 14,fontWeight: 20}
+						}}
+					 />
+                     
+					 <ChartLabel
+                      text={"Date"}
+                      includeMargin={true}
+                      xPercent={0.35}
+                      yPercent={0.77}
+					   style={{
+                                fontWeight: 'bold',
+                                textAnchor: 'middle',
+                                fontSize: "20px",
+                                fill: "#6b6b76",
+                                fontFamily: "sans-serif"
+                            }}
+                      />
+					  
+					   <ChartLabel
+                      text={y_axis}
+                      includeMargin={true}
+                      xPercent={0.01}
+                      yPercent={0.3}
+					  style={{
+						  transform: 'rotate(-90)',
+						  fontSize:'20px',
+						  fontWeight:20
+					  }}
+                      />
+					  
+                       <LineMarkSeries  
+                     color = "blue"
+                     strokeWidth="4"
+                     data={data}
+                     />
+					 
+             </XYPlot >
+			 
 			 <CSVLink data={csvData}>Download Data</CSVLink>
             </div>
            );
