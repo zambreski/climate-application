@@ -76,7 +76,7 @@ export default class GraphRender extends Component{
     */
 	componentDidUpdate(newProps)
 	{
-	  
+		
 	  var elem = "maxt"
 	  if(this.props.selectedGraphType)
 	  {
@@ -256,10 +256,10 @@ export default class GraphRender extends Component{
 			
               <div>
 				  <br/>
-                  Station: {getAsic(this.props.asicStation)[0]} Data Preview
-                  <br/>
-                  <br/>
                   <h5> Daily precipitation for {getDistrictName(this.props.selectedDistrict)} </h5>
+				  Station: {getAsic(this.props.asicStation)[0]} Data Preview
+				  <br/>
+                  <br/>
 				  <p style={{textAlign: "right"}}>Total precipitation: {ptotal.toFixed(2)} inches</p>
 				  <p style={{textAlign: "right",fontSize:14}}>Number of dates missing: {nMiss} </p>
                   <CSVLink data={csvData}>Download Data</CSVLink>
@@ -342,11 +342,11 @@ export default class GraphRender extends Component{
           return(
 
             <div >
-			<br/>
-             Station: {getAsic(this.props.asicStation)[0]} Data Preview
-             <br/>
              <br/>
              <h5 > Average temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
+             GHCN station: {getAsic(this.props.asicStation)[0]}
+             <br/>
+			 <br/>
 			 <CSVLink data={csvData}>Download Data</CSVLink>
             </div>
            );
@@ -354,7 +354,7 @@ export default class GraphRender extends Component{
       }
 	  // Return loading image
 	  else{
-        return(<div><img src={loader} class="img-fluid" /></div>)
+        return(<div style={{display: "flex",justifyContent: "center",alignItems: "center"}}><img src={loader} class="img-fluid" /></div>)
       }
       
 

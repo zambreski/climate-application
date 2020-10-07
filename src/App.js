@@ -30,12 +30,20 @@ import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
 //import CanvasJSReact from './canvasjs.react';
 
+
+// so default is this style: "rgba(79, 038, 130, 0.90)"
+	var btnStyle = {
+		backgroundColor: 'gray'
+	}
+
 class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       selectedDistrict: null,
-	  selectedDataType: true
+	  selectedDataType: true,
+	  b1bgColor: "rgba(79, 038, 130, 0.90)",
+	  b2bgColor: "rgba(79, 038, 130, 0.50)"
     }
     this.selectDistrict = this.selectDistrict.bind(this);
 	this.selectButton1 = this.selectButton1.bind(this);
@@ -50,10 +58,15 @@ class App extends React.Component{
   
   selectButton1() {
     this.setState({selectedDataType: true});
+	this.setState({b1bgColor: "rgba(79, 038, 130, 0.90)"});
+	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
   }
   
   selectButton2() {
     this.setState({selectedDataType: false});
+	this.setState({b2bgColor: "rgba(79, 038, 130, 0.90)"});
+	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+
   }
   
 
@@ -72,7 +85,6 @@ class App extends React.Component{
 				<Grid container spacing={0}>
 				  <Grid xs={12} md={7}>
 				  <KansasMap selectedDistrict={this.state.selectedDistrict} onSelect={this.selectDistrict}/>
-			 
 				 </Grid>
 		  <Grid xs={12} md={5}>
 			<SelectedDistrictCard dataCache={this.dataCache} selectedDistrict={this.state.selectedDistrict} ></SelectedDistrictCard>
@@ -85,11 +97,11 @@ class App extends React.Component{
         <Card>
 		 <CardContent style={{display: "flex",justifyContent: "center",alignItems: "center"}} >
 		   
-		   <button style={{padding: " 15px 20px",background:"rgba(79, 038, 130, 0.90)",color: "white",fontSize:25,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton1} > 
+		   <button style={{padding: " 15px 20px",background:this.state.b1bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton1} > 
                 Observations 
             </button> 
 			
-			<button style={{padding: " 15px 20px",background:"rgba(79, 038, 130, 0.90)",color: "white",fontSize:25,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton2}  > 
+			<button style={{padding: " 15px 20px",background:this.state.b2bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton2}  > 
                 Satellite 
             </button> 
 		  

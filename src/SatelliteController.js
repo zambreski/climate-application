@@ -283,18 +283,30 @@ export default class SatelliteController extends Component {
 	//<a href="images/Figure_4.png" target="_blank" download>Download NDVI Image</a>
 	
     return (
-		
-		<div class="row" style={{display: "flex",justifyContent: "center",alignItems: "center"}}>
-			<br/>
-			<div class="column">
-				 <p style={{textAlign: "center",fontSize:24,fontWeight:'bold',margin: "20px"}}> Soil moisture </p>
-				<img class="logo" src="images/Figure_4.png" alt="My_Logo" width="400" height="400" />
-			</div>
-			<div class="column">
-				<p style={{textAlign: "center",fontSize:24,fontWeight:'bold',margin: "20px"}}> NDVI </p>
-				<img class="logo" src="images/Figure_4.png" alt="My_Logo" width="400" height="400" />
-			</div>
-		 </div>
+		<div>
+			<table width="100%" border="0">
+			  <tr>    
+				  <td style={{textAlign: "center"}} >
+				  <p style={{textAlign: "center",fontSize:24,fontWeight:'bold',margin: "0px"}}> Soil Moisture </p>
+				  <img class="logo" src="images/SMAP_L3_SM_P_E_20201004_R17000_001.h5.py.png" alt="My_Logo" width="600" height="400" /></td>
+
+				  <td style={{textAlign: "center"}}>
+				   <p style={{textAlign: "center",fontSize:24,fontWeight:'bold',margin: "0px"}}>NDVI </p>
+				  <img class="logo" src="images/MOD13A2.A2020257.h10v05.006.2020280043747.hdf.py.png" alt="My_Logo" width="600" height="400" /></td>
+			  </tr>
+			  <tr>
+				  <td style={{textAlign: "center"}}>
+					<a href="images/MOD13A2.A2020257.h10v05.006.2020280043747.hdf.py.png" target="_blank" download>Download Soil Moisture Image</a>
+				  </td>
+				  <td style={{textAlign: "center"}}>
+				  <a href="images/Figure_4.png" target="_blank" download>Download NDVI Image</a>
+				  </td>
+			  </tr>
+			  
+			</table>
+		</div>
+
+	
 		
     );
 
