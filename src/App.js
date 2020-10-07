@@ -23,26 +23,39 @@ import { thisExpression } from '@babel/types';
 import CurrentWeather from './CurrentWeather';
 import KansasMap from './KansasMap2';
 import GraphController from './GraphController'
+import DataController from './DataController'
+import SatelliteController from './SatelliteController'
+import ButtonController from './ButtonController'
 import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
 //import CanvasJSReact from './canvasjs.react';
-
 
 class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      selectedDistrict: null
+      selectedDistrict: null,
+	  selectedDataType: true
     }
     this.selectDistrict = this.selectDistrict.bind(this);
+	this.selectButton1 = this.selectButton1.bind(this);
+	this.selectButton2 = this.selectButton2.bind(this);
     this.dataCache = DataCache;
     
   }
 
   selectDistrict(district) {
-    
     this.setState({selectedDistrict: district});
   }
+  
+  selectButton1() {
+    this.setState({selectedDataType: true});
+  }
+  
+  selectButton2() {
+    this.setState({selectedDataType: false});
+  }
+  
 
   render(){
     return(
@@ -54,26 +67,39 @@ class App extends React.Component{
       <Container>
     <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-          <Card>
-            <CardContent>
-            <Grid container spacing={0}>
-              <Grid xs={12} md={7}>
-              <KansasMap selectedDistrict={this.state.selectedDistrict} onSelect={this.selectDistrict}/>
-              </Grid>
-              <Grid xs={12} md={5}>
-                <SelectedDistrictCard dataCache={this.dataCache} selectedDistrict={this.state.selectedDistrict} ></SelectedDistrictCard>
-              </Grid>
-            </Grid>
+			  <Card>
+				<CardContent>
+				<Grid container spacing={0}>
+				  <Grid xs={12} md={7}>
+				  <KansasMap selectedDistrict={this.state.selectedDistrict} onSelect={this.selectDistrict}/>
+			 
+				 </Grid>
+		  <Grid xs={12} md={5}>
+			<SelectedDistrictCard dataCache={this.dataCache} selectedDistrict={this.state.selectedDistrict} ></SelectedDistrictCard>
+		  </Grid>
+     </Grid>
             </CardContent>
           </Card>
       </Grid>
-      <Grid item xs={12} md={12}>
+	  <Grid item xs={12} md={12}  alignItems= 'center'>
         <Card>
-		
+		 <CardContent style={{display: "flex",justifyContent: "center",alignItems: "center"}} >
+		   
+		   <button style={{padding: " 15px 20px",background:"rgba(79, 038, 130, 0.90)",color: "white",fontSize:25,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton1} > 
+                Observations 
+            </button> 
+			
+			<button style={{padding: " 15px 20px",background:"rgba(79, 038, 130, 0.90)",color: "white",fontSize:25,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton2}  > 
+                Satellite 
+            </button> 
+		  
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <Card>	
           <CardContent>
-            <GraphController selectedDistrict={this.state.selectedDistrict}></GraphController>
-			<canvas id="myChart" width="800" height="200"></canvas>
-
+            <DataController selectedDistrict={this.state.selectedDistrict} selectedDataType = {this.state.selectedDataType}></DataController>
           </CardContent>
         </Card>
       </Grid>

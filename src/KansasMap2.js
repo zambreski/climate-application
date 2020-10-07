@@ -5,7 +5,7 @@ import kansas from './Kansas_revision.svg';
 import { all } from 'q';
 
 /****
-* This class renders the Kansas map and also updats the map. Create by Zach Zambreski
+* This class renders the Kansas map and also updates the map. Create by Zach Zambreski
 */
 export default class KansasMap extends Component{
     
@@ -1141,7 +1141,7 @@ export default class KansasMap extends Component{
 				L327.5365,135.7154L327.05624,135.23584L327.05624,134.75628L328.49702,134.75628L328.97728,134.75628L329.45754,134.75628L329.9378,134.75628
 				L330.41806,134.75628L330.89831,134.75628L331.37857,134.75628L331.85883,134.75628L332.33909,134.75628z"/>
 		</g>
-		<g id="Border">
+		<g id="Border" pointer-events="none"  >
 			<path fill="none" stroke="#828282" stroke-width="0.96052" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" d="
 				M26.41423,10.07075L33.61812,10.55031L34.09838,10.55031L36.49967,10.55031L37.46019,10.55031L37.94045,10.55031L38.90096,10.55031
 				L39.38122,10.55031L40.34174,10.55031L42.26277,10.55031L48.50614,11.02987L49.94692,11.02987L50.90743,11.02987L52.82847,11.02987
@@ -1293,6 +1293,8 @@ export default class KansasMap extends Component{
 		</g>
 				       
 			</svg>
+			
+			
 
         );
         

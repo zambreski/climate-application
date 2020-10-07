@@ -282,7 +282,7 @@ export default class GraphController extends Component {
   render() {
 
     if (!this.props.selectedDistrict) {
-      return "Select a district to view its data.";
+      return "Select a district to view observations.";
     }
 
 
@@ -295,8 +295,7 @@ export default class GraphController extends Component {
     }
 	
 	console.log(data1)
-    console.log("type: " + this.state.selectedTypeFrequency)
-	
+    
     return (
       <div className="Graph">
 

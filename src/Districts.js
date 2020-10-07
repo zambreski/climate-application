@@ -2,7 +2,7 @@
 * Mainly these are just helper functions.
 */
 var districts ={
-    1:"Colby", 2:"Mitchell", 3:"Manhattan", 4:"Lane", 5:"Hays", 6:"Olathe", 7:"Garden City", 8:"Hutchinson", 9:"Parsons"
+    1:"Colby", 2:"Mitchell", 3:"Manhattan", 4:"Lane", 5:"Hays", 6:"Ottawa", 7:"Garden City", 8:"Hutchinson", 9:"Parsons"
 }
 
 var asic ={

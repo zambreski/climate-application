@@ -383,7 +383,7 @@ export default class SelectedDistrictCard extends Component{
             <Card style={{backgroundColor: '#87ceeb'}}>
               <Card.Body>
                 <div class="info">
-                    <div class="city"><span> City:</span> {getDistrictName(selectDNum)}</div>
+                    <div class="city"><span> station:</span> {getDistrictName(selectDNum)}</div>
                     <div class="night">{descriptionOfDay} - {twelveHourTime}  </div>
                     <div class="info2"><p style={{fontSize:"9px"}}>Last Updated: {data["timestamp"]} </p></div>
                     <div class="temp">{data["temp"]}° F</div>
