@@ -34,9 +34,6 @@ import SatelliteController from './SatelliteController'
 import GraphController from './GraphController'
 
 
-
-// Initalize bottom line plot
-
 export default class DataController extends Component {
   
   constructor(props) {
@@ -45,8 +42,8 @@ export default class DataController extends Component {
   
   render() {
 	  
-	  
-	 console.log('Current plot',this.props.selectedDataType)
+  
+	console.log('Current plot',this.props.selectedDataType)
 	
 	// If observations selected, show the line graphs
 	if (this.props.selectedDataType == true) {
@@ -54,7 +51,7 @@ export default class DataController extends Component {
 		return (
 			<div>
 			<GraphController selectedDistrict={this.props.selectedDistrict}></GraphController>
-			<canvas id="myChart" width="800" height="200"></canvas>
+			
 			</div>
 		);
 	}

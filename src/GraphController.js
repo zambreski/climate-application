@@ -367,10 +367,19 @@ export default class GraphController extends Component {
           </Grid>
 
         </form>
-
+	
         {/* Render graph */}
         <GraphRender selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} >
         </GraphRender>
+		
+		<p style={{textAlign: "center",fontSize:25,fontWeight:'bold'}}> Daily data </p>
+		<canvas id="myChart" width="800" height="200"></canvas>
+		<br/><br/><br/>
+		<p style={{textAlign: "center",fontSize:25,fontWeight:'bold'}}> Departure from normal </p>
+	    <canvas id="myChart2" width="800" height="200"></canvas>
+		<br/><br/><br/>
+		<p style={{textAlign: "center",fontSize:25,fontWeight:'bold'}}> Growing degree days </p>
+	    <canvas id="myChart3" width="800" height="200"></canvas>
 
       </div>
     );
