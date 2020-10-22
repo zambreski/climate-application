@@ -32,6 +32,7 @@ import { getAsic } from './Districts';
 import GraphRender from './GraphRender2'
 import SatelliteController from './SatelliteController'
 import GraphController from './GraphController'
+import CCGraphController from './ClimateChangeController'
 
 
 export default class DataController extends Component {
@@ -46,7 +47,7 @@ export default class DataController extends Component {
 	console.log('Current plot',this.props.selectedDataType)
 	
 	// If observations selected, show the line graphs
-	if (this.props.selectedDataType == true) {
+	if (this.props.selectedDataType == 1) {
 	
 		return (
 			<div>
@@ -56,11 +57,20 @@ export default class DataController extends Component {
 		);
 	}
 	// If satellite selected, show the two images
-	else {
+	else if (this.props.selectedDataType == 2) {
 		
 		return (
 			<div>
 			<SatelliteController selectedDistrict={this.props.selectedDistrict}></SatelliteController>
+			</div>
+		);
+	}
+	
+	else  {
+		
+		return (
+			<div>
+			<CCGraphController selectedDistrict={this.props.selectedDistrict}></CCGraphController>
 			</div>
 		);
 	}

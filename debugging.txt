@@ -1,0 +1,6 @@
+Last update: 10/22/2020
+
+- Mesonet pull retreives data over an hour old. May not be relevant.
+- Create script that downloads historical MODIS and SCAN data to create series of figures
+- Modify javascript for satellite to pull these images so the data does not have to be stored on the server. Files are extremely large.
+- Create script that downloads current MODIS and SCAN data to create new figure that can be pulled. 

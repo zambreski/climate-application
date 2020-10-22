@@ -43,11 +43,13 @@ class App extends React.Component{
       selectedDistrict: null,
 	  selectedDataType: true,
 	  b1bgColor: "rgba(79, 038, 130, 0.90)",
-	  b2bgColor: "rgba(79, 038, 130, 0.50)"
+	  b2bgColor: "rgba(79, 038, 130, 0.50)",
+	  b3bgColor: "rgba(79, 038, 130, 0.50)"
     }
     this.selectDistrict = this.selectDistrict.bind(this);
 	this.selectButton1 = this.selectButton1.bind(this);
 	this.selectButton2 = this.selectButton2.bind(this);
+	this.selectButton3 = this.selectButton3.bind(this);
     this.dataCache = DataCache;
     
   }
@@ -57,15 +59,25 @@ class App extends React.Component{
   }
   
   selectButton1() {
-    this.setState({selectedDataType: true});
+    this.setState({selectedDataType: 1});
 	this.setState({b1bgColor: "rgba(79, 038, 130, 0.90)"});
 	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
+	this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
   }
   
   selectButton2() {
-    this.setState({selectedDataType: false});
+    this.setState({selectedDataType: 2});
 	this.setState({b2bgColor: "rgba(79, 038, 130, 0.90)"});
 	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+	this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
+
+  }
+  
+  selectButton3() {
+    this.setState({selectedDataType: 3});
+	this.setState({b3bgColor: "rgba(79, 038, 130, 0.90)"});
+	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
 
   }
   
@@ -103,6 +115,10 @@ class App extends React.Component{
 			
 			<button style={{padding: " 15px 20px",background:this.state.b2bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton2}  > 
                 Satellite 
+            </button> 
+			
+			<button style={{padding: " 15px 20px",background:this.state.b3bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton3}  > 
+                Climate change 
             </button> 
 		  
           </CardContent>

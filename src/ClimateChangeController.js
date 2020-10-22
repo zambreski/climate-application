@@ -30,7 +30,7 @@ import {
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { getAsic } from './Districts';
 import GraphRender from './GraphRender2'
-import PlotController from './PlotController'
+import PlotControllerCC from './PlotControllerCC'
 import Paper from '@material-ui/core/Paper';
 
 
@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
 
 // Initalize bottom line plot
 
-export default class GraphController extends Component {
+export default class CCGraphController extends Component {
   
   constructor(props) {
     super(props);
@@ -133,8 +133,9 @@ export default class GraphController extends Component {
     this.state = {
       selectedTypeFrequency: "Weekly",
       selectedGraphType: false,
-      selectedStartDate: yesterday,
-      selectedEndDate: today,
+      selectedStartDate: "1950-01-02",
+      selectedEndDate: "2019-01-02",
+	  selectedMonth: 1,
       sdate: starting,
       edate: tdate,
       isValidStartDate: true,
@@ -143,16 +144,16 @@ export default class GraphController extends Component {
       data: [],
       items: {},
       asicStation: "",
-      selectedCropType: false,
+      selectedTimeType: false,
 	  idChange: false
     }
 
-
     this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
     this.handleChangeGraphType = this.handleChangeGraphType.bind(this);
-    this.handleChangeCropType = this.handleChangeCropType.bind(this);
+    this.handleChangeTimeType  = this.handleChangeTimeType.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
-    this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+    this.handleChangeEndDate   = this.handleChangeEndDate.bind(this);
+	this.handleChangeMonth   = this.handleChangeMonth.bind(this);
       
   }
   
@@ -178,11 +179,10 @@ export default class GraphController extends Component {
   /***
   * This method handles the change in the crop for calculating GDDs
   */
-  handleChangeCropType(item) {
+  handleChangeTimeType(item) {
     console.log(item.target.checked);
-    this.setState({selectedCropType: item.target.checked });
+    this.setState({selectedTimeType: item.target.checked });
   }
-
 
 
   handleChangeStartDateEvent(item) {
@@ -218,6 +218,15 @@ export default class GraphController extends Component {
     return true;
   }
 
+handleChangeMonth(item) {
+	
+    var date = new Date(item);
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+    this.setState({selectedMonth: item })//
+  
+  }
 
   checkThisEndDate(date) {
     date = new Date(date);
@@ -307,6 +316,8 @@ export default class GraphController extends Component {
     }
 	
 	console.log(data1)
+	
+	
     
     return (
       <div className="Graph">
@@ -329,43 +340,82 @@ export default class GraphController extends Component {
             </Typography>
           </FormGroup>
           
-          {/* GDD form selection*/}
+          {/* Time sclae form selection*/}
             <br/>
             <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
-              <Grid item xs={2}   >
-                 <p style={{textAlign: 'center',fontWeight:'bold'}}>GDDs</p>
+              <Grid item xs={2}>
+                 <p style={{textAlign: 'center',fontWeight:'bold'}}>Time scale</p>
               </Grid>
             </Grid>
             <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
               <Grid item >
-                  <p style={{textAlign: 'center'}}>Corn</p>
+                  <p style={{textAlign: 'center'}}>Annual</p>
               </Grid>
               <Grid item >
                 <p style={{textAlign: 'center'}} >
                     <PurpleSwitch
-                      checked={this.state.selectedCropType}
-                      onChange={this.handleChangeCropType}
-                      value={this.state.selectedCropType}
+                      checked={this.state.selectedTimeType}
+                      onChange={this.handleChangeTimeType}
+                      value={this.state.selectedTimeType}
                     />
                   </p>
               </Grid>
               <Grid item >
-                     <p style={{textAlign: 'center'}} >Winter wheat</p>
+                     <p style={{textAlign: 'center'}} >Monthly</p>
               </Grid>
             </Grid>
-        
-          
-          {/* Date form selection*/}
+			
+		  
+		  {/* Monthly form selection*/}
+		 {this.state.selectedTimeType &&
+		 <div>
+				  <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
+					  <Grid item xs={2}>
+						 <p style={{textAlign: 'center',fontWeight:'bold'}}>Month</p>
+					  </Grid>
+				  </Grid>
+				  <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
+					<Grid item>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+							  disableToolbar
+							  views={["month"]}
+							  variant="inline"
+							  format="MMM"
+							  margin="normal"
+							  minDate={new Date("1950-01-02")}
+							  maxDate={new Date("2016-01-02")}
+							  id="date-picker-inline"
+							  label="Month"
+							  value={this.state.selectedMonth}
+							  onChange={this.handleChangeMonth}
+							  KeyboardButtonProps={{
+								'aria-label': 'change date',
+							  }}
+							/>
+
+						</MuiPickersUtilsProvider>
+					</Grid>
+				 </Grid>
+			</div>
+		 }
+		 
+		 <br/>
+                 
+          {/* Year form selection*/}
           <Grid>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container justify="space-around">
                 <KeyboardDatePicker
                   disableToolbar
+				  views={["year"]}
                   variant="inline"
-                  format="MM-dd-yyyy"
+                  format="yyyy"
                   margin="normal"
+				  minDate={new Date("1950-01-02")}
+				  maxDate={new Date("2016-01-02")}
                   id="date-picker-inline"
-                  label="Start Date"
+                  label="Start year"
                   value={this.state.selectedStartDate}
                   onChange={this.handleChangeStartDate}
                   KeyboardButtonProps={{
@@ -375,10 +425,13 @@ export default class GraphController extends Component {
                 <KeyboardDatePicker
                   disableToolbar
                   variant="inline"
-                  format="MM-dd-yyyy"
+				  views={["year"]}
+                  format="yyyy"
                   margin="normal"
                   id="date-picker-inline"
-                  label="End Date"
+				  minDate={new Date("1953-01-02")}
+				  maxDate={new Date("2019-01-02")}
+                  label="End year"
                   value={this.state.selectedEndDate}
                   onChange={this.handleChangeEndDate}
                   KeyboardButtonProps={{
@@ -392,8 +445,8 @@ export default class GraphController extends Component {
         </form>
 	
         {/* Decide number of canvases to create*/}
-        <PlotController selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedCropType = {this.state.selectedCropType} >
-        </PlotController>
+        <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth}>
+        </PlotControllerCC>
 		
 
       </div>
