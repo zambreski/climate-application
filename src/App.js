@@ -43,12 +43,14 @@ class App extends React.Component{
 	  selectedDataType: true,
 	  b1bgColor: "rgba(79, 038, 130, 0.90)",
 	  b2bgColor: "rgba(79, 038, 130, 0.50)",
-	  b3bgColor: "rgba(79, 038, 130, 0.50)"
+	  b3bgColor: "rgba(79, 038, 130, 0.50)",
+    b4bgColor: "rgba(79, 038, 130, 0.50)"
     }
     this.selectDistrict = this.selectDistrict.bind(this);
 	this.selectButton1 = this.selectButton1.bind(this);
 	this.selectButton2 = this.selectButton2.bind(this);
 	this.selectButton3 = this.selectButton3.bind(this);
+  this.selectButton4 = this.selectButton4.bind(this);
     this.dataCache = DataCache;
     
   }
@@ -77,6 +79,15 @@ class App extends React.Component{
 	this.setState({b3bgColor: "rgba(79, 038, 130, 0.90)"});
 	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
 	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
+
+  }
+  
+  selectButton4() {
+    this.setState({selectedDataType: 4});
+	this.setState({b4bgColor: "rgba(79, 038, 130, 0.90)"});
+	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
+  this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
 
   }
   
@@ -118,6 +129,9 @@ class App extends React.Component{
 			
 			<button style={{padding: " 15px 20px",background:this.state.b3bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton3}  > 
                 Climate change 
+            </button> 
+      <button style={{padding: " 15px 20px",background:this.state.b4bgColor,color: "white",fontSize:35,margin: "20px",borderRadius: "16px"}} onClick={this.selectButton4}  > 
+                Forecasting 
             </button> 
 		  
           </CardContent>
