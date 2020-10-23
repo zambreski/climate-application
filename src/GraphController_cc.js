@@ -136,8 +136,8 @@ export default class CCGraphController extends Component {
       selectedStartDate: "1951",
       selectedEndDate: "2020",
 	  selectedMonth: "01",
-      sdate: starting,
-      edate: tdate,
+      sdate: "1950",
+      edate: "2019",
       isValidStartDate: true,
       error: null,
       isLoaded: false,
@@ -277,7 +277,6 @@ handleChangeMonth(item) {
       return;
     }
 	
-	
     this.setState({ isValidStartDate: true });
     this.setState({ selectedStartDate: item })//
     this.setState({ sdate: yyyy})
@@ -290,7 +289,8 @@ handleChangeMonth(item) {
     var dd = String(date.getDate()).padStart(2, '0');
     var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = date.getFullYear();
-
+	
+	console.log(yyyy)
 
     date = mm + '-' + dd + '-' + yyyy;
     console.log(date)

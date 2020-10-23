@@ -490,6 +490,9 @@ export default class PlotControllerCC extends Component {
 		  
 		}
 		
+		var minx = parseFloat(this.state.sdate)
+		var maxx = parseFloat(this.state.edate)
+		
 		return (
 		
 			 <html>
@@ -517,7 +520,11 @@ export default class PlotControllerCC extends Component {
 										labelString: 'Year',
 										fontSize: 18,
 										fontStyle:'bold',
-									  }
+									  },
+									ticks:{
+										min: minx,
+										max: maxx,
+										},
 								}],
 								yAxes: [{
 									  scaleLabel: {
