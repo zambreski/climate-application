@@ -22,10 +22,9 @@ import * as ColStrap from 'react-bootstrap/Col';
 import { thisExpression } from '@babel/types';
 import CurrentWeather from './CurrentWeather';
 import KansasMap from './KansasMap2';
-import GraphController from './GraphController'
+import GraphController from './GraphController_obs'
 import DataController from './DataController'
 import SatelliteController from './SatelliteController'
-import ButtonController from './ButtonController'
 import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
 //import CanvasJSReact from './canvasjs.react';

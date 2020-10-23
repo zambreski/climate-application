@@ -31,8 +31,8 @@ import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legen
 import { getAsic } from './Districts';
 import GraphRender from './GraphRender2'
 import SatelliteController from './SatelliteController'
-import GraphController from './GraphController'
-import CCGraphController from './ClimateChangeController'
+import GraphController from './GraphController_obs'
+import CCGraphController from './GraphController_cc'
 
 
 export default class DataController extends Component {
@@ -66,6 +66,7 @@ export default class DataController extends Component {
 		);
 	}
 	
+ // Show the climate change ops/config
 	else  {
 		
 		return (

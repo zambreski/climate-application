@@ -30,7 +30,7 @@ import {
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { getAsic } from './Districts';
 import GraphRender from './GraphRender2'
-import PlotControllerCC from './PlotControllerCC'
+import PlotControllerCC from './PlotController_cc'
 import Paper from '@material-ui/core/Paper';
 
 

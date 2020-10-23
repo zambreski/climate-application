@@ -22,7 +22,6 @@ import DateFnsUtils from '@date-io/date-fns';
 import loader from './loader.gif';
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { getAsic } from './Districts';
-import GraphRender from './GraphRender2'
 import $ from 'jquery';
 import {CSVLink, CSVDownload } from "react-csv";
 import Chart from 'chart.js';
