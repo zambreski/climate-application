@@ -133,9 +133,9 @@ export default class CCGraphController extends Component {
     this.state = {
       selectedTypeFrequency: "Weekly",
       selectedGraphType: false,
-      selectedStartDate: "1950-01-02",
-      selectedEndDate: "2019-01-02",
-	  selectedMonth: 1,
+      selectedStartDate: "1951",
+      selectedEndDate: "2020",
+	  selectedMonth: "01",
       sdate: starting,
       edate: tdate,
       isValidStartDate: true,
@@ -193,7 +193,7 @@ export default class CCGraphController extends Component {
     var realDate = mm + '-' + dd + '-' + yyyy;
 
 
-    this.setState({ selectedStartDate: date });
+    this.setState({ selectedStartDate: yyyy });
   }
 
 
@@ -224,7 +224,7 @@ handleChangeMonth(item) {
     var dd = String(date.getDate()).padStart(2, '0');
     var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = date.getFullYear();
-    this.setState({selectedMonth: item })//
+    this.setState({selectedMonth: mm })//
   
   }
 
@@ -276,10 +276,11 @@ handleChangeMonth(item) {
       alert(error);;
       return;
     }
-
+	
+	
     this.setState({ isValidStartDate: true });
     this.setState({ selectedStartDate: item })//
-    this.setState({ sdate: yyyy + "-" + mm + "-" + dd })
+    this.setState({ sdate: yyyy})
 	this.setState({ idChange: true})
   }
 
@@ -295,7 +296,7 @@ handleChangeMonth(item) {
     console.log(date)
 
     this.setState({ selectedEndDate: item })
-    this.setState({ edate: yyyy + "-" + mm + "-" + dd })
+    this.setState({ edate: yyyy })
   }
 
 
@@ -430,7 +431,7 @@ handleChangeMonth(item) {
                   margin="normal"
                   id="date-picker-inline"
 				  minDate={new Date("1953-01-02")}
-				  maxDate={new Date("2019-01-02")}
+				  maxDate={new Date("2020-01-02")}
                   label="End year"
                   value={this.state.selectedEndDate}
                   onChange={this.handleChangeEndDate}
@@ -445,7 +446,7 @@ handleChangeMonth(item) {
         </form>
 	
         {/* Decide number of canvases to create*/}
-        <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth}>
+        <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartYear={this.state.sdate} selectedEndYear={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth}>
         </PlotControllerCC>
 		
 

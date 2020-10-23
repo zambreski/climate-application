@@ -61,6 +61,18 @@ function getFormattedDate(date) {
   return month + ' ' + day ;
 }
 
+function getFormattedDate2(date) {
+ 
+  //var month = (1 + date.getMonth()).toString();
+  //month = month.length > 1 ? month : '0' + month;
+  
+  var month = date.toLocaleString('default', { month: 'short' });
+
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+  
+  return month + ' ' + day ;
+}
 
 
 // Initalize bottom line plot
@@ -77,6 +89,7 @@ export default class PlotControllerCC extends Component {
 		sdate:'Null',
 		edate:'Null',
 		month:'Null',
+		time:'Nul',
 		graphtype:false,
 		croptype:false,
 	
@@ -103,12 +116,16 @@ export default class PlotControllerCC extends Component {
 	  
 	  
 	  //AJAX rest calls; only call if new selection. 
-	  if (this.state.station !== this.props.asicStation || this.state.sdate !== this.props.selectedStartDate || this.state.edate !== this.props.selectedEndDate || this.state.graphtype !== this.props.selectedGraphType || this.state.month !== this.props.selectedMonth) {
+	  if (this.state.station !== this.props.asicStation || this.state.sdate !== this.props.selectedStartYear || this.state.edate !== this.props.selectedEndYear ||
+	  this.state.graphtype !== this.props.selectedGraphType || this.state.month !== this.props.selectedMonth || this.state.time !== this.props.selectedTime) {
       
 	  this.state.isLoaded = false
 	  this.state.month = this.props.selectedMonth
+	  this.state.time = this.props.selectedTime
 	  
 	  console.log(this.props.selectedTime)
+	  console.log(this.props.selectedStartYear)
+	  console.log(this.props.selectedEndYear)
 	  console.log(this.props.selectedMonth)
 	  
 	  // Monthly parameter search
@@ -116,21 +133,22 @@ export default class PlotControllerCC extends Component {
 		  if(this.props.selectedGraphType) {
 			  var params = {
 				sid: String(getAsic(this.props.asicStation)[1]),
-				sdate: this.props.selectedStartDate,
-				edate: this.props.selectedEndDate,
+				sdate: this.props.selectedStartYear + '-'+ this.props.selectedMonth + '-02',
+				edate: this.props.selectedEndYear + '-'+ this.props.selectedMonth + '-02',
 				elems: [{
 					name: 'pcpn',
 					reduce: "sum",
-					interval: "yly",
-					maxmissing: "15"
+					duration: "mly",
+					interval: [0,12],
+					maxmissing: "7"
 				},]
 			  };
 		  }
 		  else {
 			   var params = {
 				sid: String(getAsic(this.props.asicStation)[1]),
-				sdate: "1950-01-01",
-				edate: "2019-01-01",
+				sdate: this.props.selectedStartYear + '-'+ this.props.selectedMonth + '-02',
+				edate: this.props.selectedEndYear + '-'+ this.props.selectedMonth + '-02',
 				elems: [ 
 				{
 					name: 'avgt',
@@ -149,8 +167,8 @@ export default class PlotControllerCC extends Component {
 		  if(this.props.selectedGraphType) {
 			  var params = {
 				sid: String(getAsic(this.props.asicStation)[1]),
-				sdate: this.props.selectedStartDate,
-				edate: this.props.selectedEndDate,
+				sdate: this.props.selectedStartYear + '-01-01',
+				edate: this.props.selectedEndYear + '-01-01',
 				elems: [{
 					name: 'pcpn',
 					reduce: "sum",
@@ -162,8 +180,8 @@ export default class PlotControllerCC extends Component {
 		  else {
 			   var params = {
 				sid: String(getAsic(this.props.asicStation)[1]),
-				sdate: this.props.selectedStartDate,
-				edate: this.props.selectedEndDate,
+				sdate: this.props.selectedStartYear + '-01-01',
+				edate: this.props.selectedEndYear + '-01-01',
 				elems: [ 
 				{
 					name: 'avgt',
@@ -187,8 +205,8 @@ export default class PlotControllerCC extends Component {
 				isLoaded: true,
 				items: results.data,
 				station:this.props.asicStation,
-				sdate:this.props.selectedStartDate,
-				edate:this.props.selectedEndDate,
+				sdate:this.props.selectedStartYear,
+				edate:this.props.selectedEndYear,
 				graphtype:this.props.selectedGraphType
 		  });    
 		};
@@ -198,8 +216,8 @@ export default class PlotControllerCC extends Component {
 		  this.setState({
 			isLoaded: false,
 			station:this.props.asicStation,
-			sdate:this.props.selectedStartDate,
-			edate:this.props.selectedEndDate,
+			sdate:this.props.selectedStartYear,
+			edate:this.props.selectedEndYear,
 			graphtype:this.props.selectedGraphType,
 		  });
 	  }
