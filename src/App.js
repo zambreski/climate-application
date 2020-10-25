@@ -50,7 +50,7 @@ class App extends React.Component{
 	this.selectButton1 = this.selectButton1.bind(this);
 	this.selectButton2 = this.selectButton2.bind(this);
 	this.selectButton3 = this.selectButton3.bind(this);
-  this.selectButton4 = this.selectButton4.bind(this);
+    this.selectButton4 = this.selectButton4.bind(this);
     this.dataCache = DataCache;
     
   }

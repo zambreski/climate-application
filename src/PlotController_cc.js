@@ -27,6 +27,7 @@ import {CSVLink, CSVDownload } from "react-csv";
 import Chart from 'chart.js';
 import {Line,Bar,Scatter} from 'react-chartjs-2';
 import regression from 'regression';
+import moment from 'moment';
 
 const ONE_DAY = 86400000;
 
@@ -90,6 +91,7 @@ export default class PlotControllerCC extends Component {
 		edate:'Null',
 		month:'Null',
 		time:'Nul',
+		season:'Null',
 		graphtype:false,
 		croptype:false,
 	
@@ -117,19 +119,18 @@ export default class PlotControllerCC extends Component {
 	  
 	  //AJAX rest calls; only call if new selection. 
 	  if (this.state.station !== this.props.asicStation || this.state.sdate !== this.props.selectedStartYear || this.state.edate !== this.props.selectedEndYear ||
-	  this.state.graphtype !== this.props.selectedGraphType || this.state.month !== this.props.selectedMonth || this.state.time !== this.props.selectedTime) {
+	  this.state.graphtype !== this.props.selectedGraphType || this.state.month !== this.props.selectedMonth || this.state.time !== this.props.selectedTime ||
+	  this.state.season !== this.props.selectedSeason) {
       
 	  this.state.isLoaded = false
 	  this.state.month = this.props.selectedMonth
 	  this.state.time = this.props.selectedTime
-	  
-	  console.log(this.props.selectedTime)
-	  console.log(this.props.selectedStartYear)
-	  console.log(this.props.selectedEndYear)
-	  console.log(this.props.selectedMonth)
+
+	  // Correspond to start and end months for each season (e.g. spring,summer,fall,winter)
+	  var sMonths = [["03","05"],["06","08"],["09","11"],["12","02"]]
 	  
 	  // Monthly parameter search
-	  if (this.props.selectedTime) {
+	  if (this.props.selectedTime == 2) {
 		  if(this.props.selectedGraphType) {
 			  var params = {
 				sid: String(getAsic(this.props.asicStation)[1]),
@@ -156,6 +157,42 @@ export default class PlotControllerCC extends Component {
 					duration: "mly",
 					interval: [0,12],
 					maxmissing: "7"
+				},
+				]
+			  };
+			  
+		  }
+	  }
+	  // Seasonal parameter search
+	  else if (this.props.selectedTime == 3) {
+		  if(this.props.selectedGraphType) {
+			  var params = {
+				sid: String(getAsic(this.props.asicStation)[1]),
+				sdate: this.props.selectedStartYear + '-'+ sMonths[this.props.selectedSeason-1][1] ,
+				edate: this.props.selectedEndYear + '-'+ sMonths[this.props.selectedSeason-1][1] ,
+				elems: [{
+					name: 'pcpn',
+					interval: [1,0],
+					duration:'std',
+					season_start:sMonths[this.props.selectedSeason-1][0],
+					maxmissing: "7",
+					reduce: 'sum',
+				},]
+			  };
+		  }
+		  else {
+			   var params = {
+				sid: String(getAsic(this.props.asicStation)[1]),
+				sdate: this.props.selectedStartYear + '-'+ sMonths[this.props.selectedSeason-1][1] ,
+				edate: this.props.selectedEndYear + '-'+ sMonths[this.props.selectedSeason-1][1] ,
+				elems: [ 
+				{
+					name: 'avgt',
+					interval: [1,0],
+					duration:'std',
+					season_start:sMonths[this.props.selectedSeason-1][0],
+					maxmissing: "7",
+					reduce: 'mean',
 				},
 				]
 			  };
@@ -207,7 +244,8 @@ export default class PlotControllerCC extends Component {
 				station:this.props.asicStation,
 				sdate:this.props.selectedStartYear,
 				edate:this.props.selectedEndYear,
-				graphtype:this.props.selectedGraphType
+				graphtype:this.props.selectedGraphType,
+				season:this.props.selectedSeason
 		  });    
 		};
 	  xdr.onprogress = $.noop();
@@ -219,6 +257,7 @@ export default class PlotControllerCC extends Component {
 			sdate:this.props.selectedStartYear,
 			edate:this.props.selectedEndYear,
 			graphtype:this.props.selectedGraphType,
+			season:this.props.selectedSeason
 		  });
 	  }
 	  xdr.send()
@@ -251,17 +290,17 @@ export default class PlotControllerCC extends Component {
 	  }
 	  
 	}
-
-
+   
   render() {
   
       // Initialize empty list for data to be renderd
 	  var data = []
 	  var dataAvg = []
-	  var dataAvg2 = []
-		
+	  var dataAvg2 = []  
+	  
 	  var gtitle = 'Annual'
       var y_axis = "Temperature (°F)"
+	  var seasons = ['Spring','Summer','Fall','Winter']
       // The default y axis is temperature.
 	  
 	  if(this.props.selectedGraphType)
@@ -270,10 +309,16 @@ export default class PlotControllerCC extends Component {
         y_axis = "Precipitation (inches)"
       }
 	  
-	  if(this.props.selectedTime)
+	  if(this.props.selectedTime ==2)
       {
         // Change y axis if switch to precitpitation in props.
-        gtitle = "Monthly"
+        gtitle = moment().month(this.props.selectedMonth-1).format("MMMM")
+      }
+	  else if (this.props.selectedTime == 3)
+		  
+	  {
+        // Change y axis if switch to precitpitation in props.
+        gtitle = seasons[this.props.selectedSeason-1]
       }
 	  
     
@@ -349,8 +394,7 @@ export default class PlotControllerCC extends Component {
 			csvData1.push([formatDate(new Date(dsplit)),obj[1],obj[2],obj[3]])
 			// for each data point push it to the csvData list.h
 		  } */
-
-
+  
           for(var i = 0; i < this.state.items.length; i++) {
             
 			var obj = this.state.items[i];
@@ -366,6 +410,7 @@ export default class PlotControllerCC extends Component {
 				dataAvg2.push([parseFloat(dsplit), parseFloat(obj[1])]);	
 			}
 			else if(obj[1] == 'M' ){
+				dataAvg.push({x: parseFloat(dsplit), y:'Null'});
     			nMiss = nMiss + 1
     		}
 		}
@@ -478,6 +523,8 @@ export default class PlotControllerCC extends Component {
 				label: "Mean",
 				data: dataAvg,
 				borderColor:'red',
+				lineTension: 0,
+				spanGaps: false,
 				fill:false
 			},{	
 				// Trend line
@@ -553,6 +600,7 @@ export default class PlotControllerCC extends Component {
 									   fontWeight:'bold'
 											},
 								trendlines: { 0: {} },
+								bezierCurve: false
 						  }	}
 						 
 						/>

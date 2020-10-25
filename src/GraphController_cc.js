@@ -32,7 +32,8 @@ import { getAsic } from './Districts';
 import GraphRender from './GraphRender2'
 import PlotControllerCC from './PlotController_cc'
 import Paper from '@material-ui/core/Paper';
-
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 const PurpleSwitch = withStyles({
   switchBase: {
@@ -144,20 +145,30 @@ export default class CCGraphController extends Component {
       data: [],
       items: {},
       asicStation: "",
-      selectedTimeType: false,
+      selectedTimeType: 1,
+	  selectedSeason: 1,
+	  b1bgColor: "rgba(79, 038, 130, 0.90)",
+	  b2bgColor: "rgba(79, 038, 130, 0.50)",
+	  b3bgColor: "rgba(79, 038, 130, 0.50)",
 	  idChange: false
     }
 
     this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
     this.handleChangeGraphType = this.handleChangeGraphType.bind(this);
     this.handleChangeTimeType  = this.handleChangeTimeType.bind(this);
+	this.handleChangeTimeType1 = this.handleChangeTimeType1.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate   = this.handleChangeEndDate.bind(this);
-	this.handleChangeMonth   = this.handleChangeMonth.bind(this);
+	this.handleChangeMonth     = this.handleChangeMonth.bind(this);
+	this.selectSeason          = this.selectSeason.bind(this);
       
   }
   
- 
+	
+   selectSeason(item) {
+    this.setState({selectedSeason: item});
+	console.log('SPRINGGGG',this.state.selectedSeason)
+  }
 
   /***
   * This method handles the change in the frequency of the UI element of frequency.
@@ -182,6 +193,26 @@ export default class CCGraphController extends Component {
   handleChangeTimeType(item) {
     console.log(item.target.checked);
     this.setState({selectedTimeType: item.target.checked });
+  }
+  
+  handleChangeTimeType1(item) {
+    this.setState({selectedTimeType: item });
+	console.log(item);
+	if (item == 1) {
+		this.setState({b1bgColor: "rgba(79, 038, 130, 0.90)"});
+		this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
+		this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
+	}
+	else if (item == 2) {
+		this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+		this.setState({b2bgColor: "rgba(79, 038, 130, 0.90)"});
+		this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
+	}
+	else if (item == 3) {
+		this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
+		this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
+		this.setState({b3bgColor: "rgba(79, 038, 130, 0.90)"});
+	}
   }
 
 
@@ -218,7 +249,7 @@ export default class CCGraphController extends Component {
     return true;
   }
 
-handleChangeMonth(item) {
+  handleChangeMonth(item) {
 	
     var date = new Date(item);
     var dd = String(date.getDate()).padStart(2, '0');
@@ -342,33 +373,34 @@ handleChangeMonth(item) {
           </FormGroup>
           
           {/* Time sclae form selection*/}
-            <br/>
-            <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
-              <Grid item xs={2}>
+            <br/>		
+			<Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
+              <Grid item xs={3}>
                  <p style={{textAlign: 'center',fontWeight:'bold'}}>Time scale</p>
               </Grid>
             </Grid>
             <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
               <Grid item >
-                  <p style={{textAlign: 'center'}}>Annual</p>
+                   <button type="button" style={{padding: " 10px 10px",background:this.state.b1bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(1)}> 
+                Annual
+					</button> 
               </Grid>
               <Grid item >
-                <p style={{textAlign: 'center'}} >
-                    <PurpleSwitch
-                      checked={this.state.selectedTimeType}
-                      onChange={this.handleChangeTimeType}
-                      value={this.state.selectedTimeType}
-                    />
-                  </p>
+                 <button type="button" style={{padding: " 10px 10px",background:this.state.b2bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(2)} >
+                Monthly
+				</button> 
               </Grid>
               <Grid item >
-                     <p style={{textAlign: 'center'}} >Monthly</p>
+                  <button type="button" style={{padding: " 10px 10px",background:this.state.b3bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(3)} > 
+					Season
+			      </button> 
               </Grid>
             </Grid>
 			
-		  
+		 <br/>
+		 
 		  {/* Monthly form selection*/}
-		 {this.state.selectedTimeType &&
+		 {this.state.selectedTimeType == 2 &&
 		 <div>
 				  <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
 					  <Grid item xs={2}>
@@ -394,10 +426,28 @@ handleChangeMonth(item) {
 								'aria-label': 'change date',
 							  }}
 							/>
-
 						</MuiPickersUtilsProvider>
 					</Grid>
 				 </Grid>
+			</div>
+		 }
+		 
+		 {/* Season form selection*/}
+		 {this.state.selectedTimeType == 3 &&
+		 <div>
+				<Dropdown>
+				  <Dropdown.Toggle variant="success" id="dropdown-basic">
+					Season
+				  </Dropdown.Toggle>
+
+				  <Dropdown.Menu>
+					<Dropdown.Item onClick={() => this.selectSeason(1)}>Spring</Dropdown.Item>
+					<Dropdown.Item onClick={() => this.selectSeason(2)}>Summer</Dropdown.Item>
+					<Dropdown.Item onClick={() => this.selectSeason(3)}>Fall</Dropdown.Item>
+					<Dropdown.Item onClick={() => this.selectSeason(4)}>Winter</Dropdown.Item>
+				  </Dropdown.Menu>
+				</Dropdown>
+
 			</div>
 		 }
 		 
@@ -446,7 +496,7 @@ handleChangeMonth(item) {
         </form>
 	
         {/* Decide number of canvases to create*/}
-        <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartYear={this.state.sdate} selectedEndYear={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth}>
+        <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartYear={this.state.sdate} selectedEndYear={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth} selectedSeason = {this.state.selectedSeason}>
         </PlotControllerCC>
 		
 
