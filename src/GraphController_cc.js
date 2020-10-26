@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
+import Box from '@material-ui/core/Box';
 
 import { purple } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
@@ -93,12 +94,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
   },
 }));
-
-
-
-
-
-
 
 
 
@@ -352,104 +347,107 @@ export default class CCGraphController extends Component {
 	
     
     return (
-      <div className="Graph">
-
-        <form autoComplete="off">
-          {/* This renders the form for input control for the graphs */}
-          <FormGroup>
-            <Typography component="div">
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item style={{fontSize: 20}}>Temperature</Grid>
-                <Grid item>
-                  <PurpleSwitch
-                    checked={this.state.selectedGraphType}
-                    onChange={this.handleChangeGraphType}
-                    value={this.state.selectedGraphType}
-                  />
-                </Grid>
-                <Grid item style={{fontSize: 20}}>Precipitation</Grid>
-              </Grid>
-            </Typography>
-          </FormGroup>
-          
-          {/* Time sclae form selection*/}
-            <br/>		
-			<Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
-              <Grid item xs={3}>
-                 <p style={{textAlign: 'center',fontWeight:'bold'}}>Time scale</p>
-              </Grid>
-            </Grid>
-            <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
-              <Grid item >
-                   <button type="button" style={{padding: " 10px 10px",background:this.state.b1bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(1)}> 
-                Annual
-					</button> 
-              </Grid>
-              <Grid item >
-                 <button type="button" style={{padding: " 10px 10px",background:this.state.b2bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(2)} >
-                Monthly
-				</button> 
-              </Grid>
-              <Grid item >
-                  <button type="button" style={{padding: " 10px 10px",background:this.state.b3bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(3)} > 
-					Season
-			      </button> 
-              </Grid>
-            </Grid>
-			
-		 <br/>
-		 
-		  {/* Monthly form selection*/}
-		 {this.state.selectedTimeType == 2 &&
-		 <div>
-				  <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
-					  <Grid item xs={2}>
-						 <p style={{textAlign: 'center',fontWeight:'bold'}}>Month</p>
-					  </Grid>
-				  </Grid>
-				  <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
+      <div className="Graph" >
+		
+		<Box style = {{"background-color": "rgb(211,211,211,0.5)",padding: " 10px 10px",borderRadius: "16px",width: "40%"}}>
+			  {/* This renders the form for input control for the graphs */}
+			  <FormGroup>
+				<Typography component="div">
+				  <Grid component="label" container alignItems="center" spacing={1}>
+					<Grid item style={{fontSize: 20}}>Temperature</Grid>
 					<Grid item>
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<KeyboardDatePicker
-							  disableToolbar
-							  views={["month"]}
-							  variant="inline"
-							  format="MMM"
-							  margin="normal"
-							  minDate={new Date("1950-01-02")}
-							  maxDate={new Date("2016-01-02")}
-							  id="date-picker-inline"
-							  label="Month"
-							  value={this.state.selectedMonth}
-							  onChange={this.handleChangeMonth}
-							  KeyboardButtonProps={{
-								'aria-label': 'change date',
-							  }}
-							/>
-						</MuiPickersUtilsProvider>
+					  <PurpleSwitch
+						checked={this.state.selectedGraphType}
+						onChange={this.handleChangeGraphType}
+						value={this.state.selectedGraphType}
+					  />
 					</Grid>
-				 </Grid>
-			</div>
-		 }
+					<Grid item style={{fontSize: 20}}>Precipitation</Grid>
+				  </Grid>
+				</Typography>
+			  </FormGroup>
+			  
+			  {/* Time scale form selection*/}
+				<br/>		
+				<Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
+			
+				  <Grid item >
+					 <p style={{textAlign: 'center',fontWeight:'bold'}}>Time scale</p>
+				  </Grid>
+				</Grid>
+				<Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
+				  <Grid item >
+					   <button type="button" style={{padding: " 10px 10px",background:this.state.b1bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(1)}> 
+					Annual
+						</button> 
+				  </Grid>
+				  <Grid item >
+					 <button type="button" style={{padding: " 10px 10px",background:this.state.b2bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(2)} >
+					Monthly
+					</button> 
+				  </Grid>
+				  <Grid item >
+					  <button type="button" style={{padding: " 10px 10px",background:this.state.b3bgColor,color: "white",fontSize:16,margin: "10px",borderRadius: "16px"}}  onClick={() => this.handleChangeTimeType1(3)} > 
+						Season
+					  </button> 
+				  </Grid>
+				</Grid>
+				
+			 <br/>
+			 
+			  {/* Monthly form selection*/}
+			 {this.state.selectedTimeType == 2 &&
+			 <div>
+					  <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
+						  <Grid item xs={2}>
+							 <p style={{textAlign: 'center',fontWeight:'bold'}}>Month</p>
+						  </Grid>
+					  </Grid>
+					  <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
+						<Grid item>
+							<MuiPickersUtilsProvider utils={DateFnsUtils}>
+								<KeyboardDatePicker
+								  disableToolbar
+								  views={["month"]}
+								  variant="inline"
+								  format="MMM"
+								  margin="normal"
+								  minDate={new Date("1950-01-02")}
+								  maxDate={new Date("2016-01-02")}
+								  id="date-picker-inline"
+								  label="Month"
+								  value={this.state.selectedMonth}
+								  onChange={this.handleChangeMonth}
+								  KeyboardButtonProps={{
+									'aria-label': 'change date',
+								  }}
+								/>
+							</MuiPickersUtilsProvider>
+						</Grid>
+					 </Grid>
+				</div>
+			 }
+			 
+			 {/* Season form selection*/}
+			 {this.state.selectedTimeType == 3 &&
+			 <div>
+					<Dropdown>
+					  <Dropdown.Toggle variant="success" id="dropdown-basic">
+						Season
+					  </Dropdown.Toggle>
+
+					  <Dropdown.Menu>
+						<Dropdown.Item onClick={() => this.selectSeason(1)}>Spring</Dropdown.Item>
+						<Dropdown.Item onClick={() => this.selectSeason(2)}>Summer</Dropdown.Item>
+						<Dropdown.Item onClick={() => this.selectSeason(3)}>Fall</Dropdown.Item>
+						<Dropdown.Item onClick={() => this.selectSeason(4)}>Winter</Dropdown.Item>
+					  </Dropdown.Menu>
+					</Dropdown>
+
+				</div>
+			 }
 		 
-		 {/* Season form selection*/}
-		 {this.state.selectedTimeType == 3 &&
-		 <div>
-				<Dropdown>
-				  <Dropdown.Toggle variant="success" id="dropdown-basic">
-					Season
-				  </Dropdown.Toggle>
-
-				  <Dropdown.Menu>
-					<Dropdown.Item onClick={() => this.selectSeason(1)}>Spring</Dropdown.Item>
-					<Dropdown.Item onClick={() => this.selectSeason(2)}>Summer</Dropdown.Item>
-					<Dropdown.Item onClick={() => this.selectSeason(3)}>Fall</Dropdown.Item>
-					<Dropdown.Item onClick={() => this.selectSeason(4)}>Winter</Dropdown.Item>
-				  </Dropdown.Menu>
-				</Dropdown>
-
-			</div>
-		 }
+		 </Box>
 		 
 		 <br/>
                  
@@ -493,8 +491,6 @@ export default class CCGraphController extends Component {
             </MuiPickersUtilsProvider>
           </Grid>
 
-        </form>
-	
         {/* Decide number of canvases to create*/}
         <PlotControllerCC selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartYear={this.state.sdate} selectedEndYear={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedTime = {this.state.selectedTimeType} selectedMonth = {this.state.selectedMonth} selectedSeason = {this.state.selectedSeason}>
         </PlotControllerCC>

@@ -533,6 +533,7 @@ export default class PlotControllerCC extends Component {
 				borderColor:'black',
 				fill:false,
 				pointRadius: 0,
+				toolTipContent: 'Null'
 			}]
 		  
 		}

@@ -219,6 +219,7 @@ export default class PlotController extends Component {
 	  var dataDepMax = []
 	  var dataDepMin = []
 	  var dataGDD = []
+	  var gddL = []
 	  
 	  //console.log(this.state.items)
       var y_axis = "Temperature (°F)"
@@ -323,13 +324,13 @@ export default class PlotController extends Component {
 			//winter wheat
 		    var baseTemp = 32
 			var upTemp   = 70
-			var label  = 'Accumulated GDDs (winter wheat)'
+			var label  = 'Winter wheat'
         }
         else {
 			//corn
 			var baseTemp = 50
 			var upTemp   = 86
-			var label  = 'Accumulated GDDs (corn)'
+			var label  = 'Corn'
         }
       
 
@@ -371,6 +372,7 @@ export default class PlotController extends Component {
 				  }
 				  
 				  // Accumulate GDDs
+				  gddL.push({x: new Date(dsplit), y: gdd});
 				  accGDD = accGDD + gdd
 				  dataGDD.push({x: new Date(dsplit), y: accGDD});
 				  csvData3.push([formatDate(new Date(dsplit)),accGDD])
@@ -518,11 +520,24 @@ export default class PlotController extends Component {
 		
 		const data3 = {
 		  datasets:  [{	
-					// GDD
-					label: label,
+					// Accumulated GDD
+					label: 'Accumulated',
 					data: dataGDD,
-					borderColor:'orange',
-					fill:true
+					borderColor:'gray',
+					pointBackgroundColor:'orange',
+					pointBorderColor:'black',
+					pointRadius:5,
+					fill:false,
+					yAxisID: 'B',
+							},
+								
+					// Daily GDD
+					{
+					label: 'Daily',
+					data: gddL,
+					backgroundColor:"rgba(153, 204, 255, 0.95)",
+					yAxisID: 'A',
+					type: 'bar',
 							},] 
 					}
 
@@ -664,8 +679,8 @@ export default class PlotController extends Component {
 					
 					<br/><br/><br/>
 					<CSVLink data={csvData3}>Download Data</CSVLink>
-					<p align="right" style={{fontSize:16}}>Base temp: {baseTemp} °F </p>
-					<p align="right" style={{fontSize:16}}>Upper limit temp: {upTemp} °F </p>
+					<p align="right" style={{fontSize:16,padding: 0, margin: 0}}>Base temp: {baseTemp} °F </p>
+					<p align="right" style={{fontSize:16,padding: 0, margin: 0}}>Upper limit temp: {upTemp} °F </p>
 					<Line
 						  data={data3}
 						  height={500}
@@ -690,13 +705,29 @@ export default class PlotController extends Component {
 									  }
 								}],
 								yAxes: [{
-									  scaleLabel: {
+									id: 'A',
+									type: 'linear',
+									position: 'left',
+									scaleLabel: {
 										display: true,
-										labelString: 'GDD (°F day) ',
-										fontSize: 18,
+										labelString: 'Daily GDD (°F day) ',
+										fontSize: 16,
 										fontStyle:'bold',
-									  }
-									}]
+									  },
+									ticks: {maxTicksLimit: 3,}
+									},
+									{
+									id: 'B',
+									type: 'linear',
+									position: 'right',
+									scaleLabel: {
+										display: true,
+										labelString: 'Accumulated GDD (°F day) ',
+										fontSize: 16,
+										fontStyle:'bold',
+									   },
+									ticks: {maxTicksLimit: 3,}
+									},]
 								  },
 								legend: {display:true},
 								maintainAspectRatio: false ,
@@ -726,7 +757,7 @@ export default class PlotController extends Component {
 								 },
 								title: {
 									  display: true,
-									   text: 'Growing degree days (GDDs)',
+									   text: label + ' growing degree days (GDDs)',
 									   fontSize:25,
 									   fontWeight:'bold'
 									}
