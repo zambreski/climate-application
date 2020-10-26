@@ -66,12 +66,22 @@ export default class DataController extends Component {
 		);
 	}
 	
- // Show the climate change ops/config
-	else  {
+   // Show the climate change ops/config
+	else if (this.props.selectedDataType == 3) {
 		
 		return (
 			<div>
 			<CCGraphController selectedDistrict={this.props.selectedDistrict}></CCGraphController>
+			</div>
+		);
+	}
+	
+	// Show the climate change ops/config
+	else if (this.props.selectedDataType == 4) {
+		
+		return (
+			<div style={{textAlign: 'center',fontSize:24}}>
+			 Under construction 
 			</div>
 		);
 	}

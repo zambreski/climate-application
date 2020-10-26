@@ -87,7 +87,7 @@ class App extends React.Component{
 	this.setState({b4bgColor: "rgba(79, 038, 130, 0.90)"});
 	this.setState({b1bgColor: "rgba(79, 038, 130, 0.50)"});
 	this.setState({b2bgColor: "rgba(79, 038, 130, 0.50)"});
-  this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
+    this.setState({b3bgColor: "rgba(79, 038, 130, 0.50)"});
 
   }
   
