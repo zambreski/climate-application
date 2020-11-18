@@ -81,9 +81,7 @@ export default class PlotController extends Component {
       }
 	  
     }
-	
-		
-    
+
     /*
     * This component will fetch the data from the API via ajax rest calls.
     * Note depending on the data pulled, the data will be change to reflect that.
@@ -471,7 +469,12 @@ export default class PlotController extends Component {
 		//*************//
 		// Temperature //
 		//*************//
-	
+		
+	   
+	   //---------------------//
+	   // Data for first plot //
+	   //---------------------//
+	   
 	   const data1 = {
 		  
 		  datasets: [{	
@@ -498,6 +501,10 @@ export default class PlotController extends Component {
 		  
 		}
 		
+		//----------------------//
+		// Data for second plot //
+		//----------------------//
+		
 		 const data2 = {
 			 datasets: [{	
 					// Max temp departure
@@ -517,6 +524,10 @@ export default class PlotController extends Component {
 								]
 		  
 		}
+		
+		//---------------------//
+		// Data for third plot //
+		//---------------------//
 		
 		const data3 = {
 		  datasets:  [{	
@@ -548,11 +559,16 @@ export default class PlotController extends Component {
 				 <body>
 
 				    {/* Create three canvas's for temperature */}
+					
 				    <h5 > Temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
 					 GHCN station: {getAsic(this.props.asicStation)[0]}
 					<br/><br/>
 					<CSVLink data={csvData1} >Download Data</CSVLink>
-
+					 
+					 {/**************/}
+					 {/* FIRST PLOT */}
+					 {/**************/}
+					
 					 <Line
 						  data={data1}
 						  height={500}
@@ -606,12 +622,16 @@ export default class PlotController extends Component {
 						 
 						/>
 					
+					{/***************/}
+					{/* SECOND PLOT */}
+					{/***************/}
+					
 					<br/><br/><br/>
 					<CSVLink data={csvData2} >Download Data</CSVLink><br/>
 					<Line
-						  data={data2}
+						  data  ={data2}
 						  height={500}
-						  width={1200}
+						  width ={1200}
 						  options= {{
 							 scales: {
 								xAxes: [{
@@ -676,6 +696,10 @@ export default class PlotController extends Component {
 								}}	
 						 
 						/>
+					
+					{/**************/}
+					{/* THIRD PLOT */}
+					{/**************/}
 					
 					<br/><br/><br/>
 					<CSVLink data={csvData3}>Download Data</CSVLink>
@@ -762,12 +786,9 @@ export default class PlotController extends Component {
 									   fontWeight:'bold'
 									}
 					 
-								}}	
-						 
+								}}							 
 						/>
-
 				  </body>
- 
 			  </html>
 			);
 
@@ -775,7 +796,7 @@ export default class PlotController extends Component {
 		}
 	
 
-// Return loading image
+// Return loading image gif
 	  else{
         return(
 		<div style={{display: "flex",justifyContent: "center",alignItems: "center"}}>

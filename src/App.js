@@ -29,7 +29,6 @@ import SelectedDistrictCard from './SelectedDistrictCard';
 import DataCache from './Helpers/DataCache';
 //import CanvasJSReact from './canvasjs.react';
 
-
 // so default is this style: "rgba(79, 038, 130, 0.90)"
 	var btnStyle = {
 		backgroundColor: 'gray'
