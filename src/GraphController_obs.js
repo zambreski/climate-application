@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
+import Box from '@material-ui/core/Box';
 
 import { purple } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
@@ -312,9 +313,11 @@ export default class GraphController extends Component {
       <div className="Graph">
 
         <form autoComplete="off">
+        <Box style = {{"background-color": "rgb(211,211,211,0.5)","border-width":"2px", "border-style":"solid","border-color":"gray",padding: "10px 10px",borderRadius: "16px",width: "30%"}}>
           {/* This renders the form for input control for the graphs */}
           <FormGroup>
             <Typography component="div">
+              <p style={{textAlign: 'left',fontWeight:'bold',fontSize: 20,marginBottom:"-7px"}}>Variable</p>
               <Grid component="label" container alignItems="center" spacing={1}>
                 <Grid item style={{fontSize: 20}}>Temperature</Grid>
                 <Grid item>
@@ -333,7 +336,7 @@ export default class GraphController extends Component {
             <br/>
             <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
               <Grid item xs={2}   >
-                 <p style={{textAlign: 'center',fontWeight:'bold'}}>GDDs</p>
+                 <p style={{textAlign: 'left',fontWeight:'bold',marginBottom:"18px"}}>GDDs</p>
               </Grid>
             </Grid>
             <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
@@ -354,7 +357,8 @@ export default class GraphController extends Component {
               </Grid>
             </Grid>
         
-          
+          </Box>
+          <br/>
           {/* Date form selection*/}
           <Grid>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -390,6 +394,8 @@ export default class GraphController extends Component {
           </Grid>
 
         </form>
+
+        <br/>
 	
         {/* Decide number of canvases to create*/}
         <PlotController selectedDistrict={this.props.selectedDistrict} asicStation={this.props.selectedDistrict} selectedStartDate={this.state.sdate} selectedEndDate={this.state.edate} selectedGraphType={this.state.selectedGraphType} selectedCropType = {this.state.selectedCropType} >

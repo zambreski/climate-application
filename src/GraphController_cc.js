@@ -349,10 +349,11 @@ export default class CCGraphController extends Component {
     return (
       <div className="Graph" >
 		
-		<Box style = {{"background-color": "rgb(211,211,211,0.5)",padding: " 10px 10px",borderRadius: "16px",width: "40%"}}>
+		<Box style = {{"background-color": "rgb(211,211,211,0.5)","border-width":"2px", "border-style":"solid","border-color":"gray",padding: "10px 10px",borderRadius: "16px",width: "40%"}}>
 			  {/* This renders the form for input control for the graphs */}
 			  <FormGroup>
 				<Typography component="div">
+          <p style={{textAlign: 'left',fontWeight:'bold',fontSize: 20,marginBottom:"-7px"}}>Variable</p>
 				  <Grid component="label" container alignItems="center" spacing={1}>
 					<Grid item style={{fontSize: 20}}>Temperature</Grid>
 					<Grid item>

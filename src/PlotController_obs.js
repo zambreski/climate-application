@@ -412,7 +412,7 @@ export default class PlotController extends Component {
 				 <Bar
 					  data={data1}
 					  height={500}
-					  width={1200}
+					  width={1150}
 					  options={{
 						  scales: {
 							xAxes: [{
@@ -572,7 +572,7 @@ export default class PlotController extends Component {
 					 <Line
 						  data={data1}
 						  height={500}
-						  width={1200}
+						  width={1150}
 						  options= {{
 							 scales: {
 								xAxes: [{
@@ -631,7 +631,7 @@ export default class PlotController extends Component {
 					<Line
 						  data  ={data2}
 						  height={500}
-						  width ={1200}
+						  width ={1150}
 						  options= {{
 							 scales: {
 								xAxes: [{
@@ -708,7 +708,7 @@ export default class PlotController extends Component {
 					<Line
 						  data={data3}
 						  height={500}
-						  width={1200}
+						  width={1150}
 						  options= {{
 							 scales: {
 								xAxes: [{

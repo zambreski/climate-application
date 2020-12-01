@@ -445,7 +445,7 @@ export default class PlotControllerCC extends Component {
 				<Bar
 					  data={data1}
 					  height={500}
-					  width={1200}
+					  width={1150}
 					  options={{
 						  scales: {
 					      xAxes: [{
@@ -547,7 +547,6 @@ export default class PlotControllerCC extends Component {
 			 
 				 <body>
 					<br/>
-				    {/* Create three canvas's for temperature */}
 				    <h5 > Temperature for {getDistrictName(this.props.selectedDistrict)}</h5>
 					 GHCN station: {getAsic(this.props.asicStation)[0]}
 					<br/><br/>
@@ -556,7 +555,7 @@ export default class PlotControllerCC extends Component {
 					<Line
 						  data={data1}
 						  height={500}
-						  width ={1200}
+						  width ={1150}
 						  options= {{
 							 scales: {
 								xAxes: [{
