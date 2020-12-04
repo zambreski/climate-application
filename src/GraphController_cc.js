@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import Box from '@material-ui/core/Box';
+import { Container, Row, Col } from 'reactstrap';
 
 import { purple } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
@@ -141,28 +142,30 @@ export default class CCGraphController extends Component {
       items: {},
       asicStation: "",
       selectedTimeType: 1,
-	  selectedSeason: 1,
-	  b1bgColor: "rgba(79, 038, 130, 0.90)",
-	  b2bgColor: "rgba(79, 038, 130, 0.50)",
-	  b3bgColor: "rgba(79, 038, 130, 0.50)",
-	  idChange: false
+      selectedSeason: 1,
+      selectedSeasonName: 'Spring',
+      b1bgColor: "rgba(79, 038, 130, 0.90)",
+      b2bgColor: "rgba(79, 038, 130, 0.50)",
+      b3bgColor: "rgba(79, 038, 130, 0.50)",
+      idChange: false
     }
 
     this.handleChangeFrequency = this.handleChangeFrequency.bind(this);
     this.handleChangeGraphType = this.handleChangeGraphType.bind(this);
     this.handleChangeTimeType  = this.handleChangeTimeType.bind(this);
-	this.handleChangeTimeType1 = this.handleChangeTimeType1.bind(this);
+	  this.handleChangeTimeType1 = this.handleChangeTimeType1.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate   = this.handleChangeEndDate.bind(this);
-	this.handleChangeMonth     = this.handleChangeMonth.bind(this);
-	this.selectSeason          = this.selectSeason.bind(this);
+	  this.handleChangeMonth     = this.handleChangeMonth.bind(this);
+	  this.selectSeason          = this.selectSeason.bind(this);
       
   }
   
 	
-   selectSeason(item) {
+   selectSeason(item,name) {
     this.setState({selectedSeason: item});
-	console.log('SPRINGGGG',this.state.selectedSeason)
+    this.setState({selectedSeasonName: name});
+	
   }
 
   /***
@@ -349,10 +352,11 @@ export default class CCGraphController extends Component {
     return (
       <div className="Graph" >
 		
-		<Box style = {{"background-color": "rgb(211,211,211,0.5)",padding: " 10px 10px",borderRadius: "16px",width: "40%"}}>
+		<Box style = {{"background-color": "rgb(211,211,211,0.5)","border-width":"2px", "border-style":"solid","border-color":"gray",padding: "10px 10px",borderRadius: "16px",width: "30%"}}>
 			  {/* This renders the form for input control for the graphs */}
 			  <FormGroup>
 				<Typography component="div">
+          <p style={{textAlign: 'left',fontWeight:'bold',fontSize: 20,marginBottom:"-7px"}}>Variable</p>
 				  <Grid component="label" container alignItems="center" spacing={1}>
 					<Grid item style={{fontSize: 20}}>Temperature</Grid>
 					<Grid item>
@@ -430,21 +434,30 @@ export default class CCGraphController extends Component {
 			 
 			 {/* Season form selection*/}
 			 {this.state.selectedTimeType == 3 &&
-			 <div>
-					<Dropdown>
-					  <Dropdown.Toggle variant="success" id="dropdown-basic">
-						Season
-					  </Dropdown.Toggle>
+        <div>
+          <Container>
+            <Row>
+              <Col>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic" style={{"background-color": "rgba(79, 038, 130, 0.90)"}} >
+                  Season
+                  </Dropdown.Toggle>
 
-					  <Dropdown.Menu>
-						<Dropdown.Item onClick={() => this.selectSeason(1)}>Spring</Dropdown.Item>
-						<Dropdown.Item onClick={() => this.selectSeason(2)}>Summer</Dropdown.Item>
-						<Dropdown.Item onClick={() => this.selectSeason(3)}>Fall</Dropdown.Item>
-						<Dropdown.Item onClick={() => this.selectSeason(4)}>Winter</Dropdown.Item>
-					  </Dropdown.Menu>
-					</Dropdown>
-
-				</div>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => this.selectSeason(1,"Spring")}>Spring</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.selectSeason(2,"Summer")}>Summer</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.selectSeason(3,"Fall")}>Fall</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.selectSeason(4,"Winter")}>Winter</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            <Col>
+              <p style={{textAlign: 'left',fontSize: 20,marginBottom:"-7px"}}>
+              {this.state.selectedSeasonName}</p>
+            </Col>
+            </Row>
+         </Container>
+        </div>
 			 }
 		 
 		 </Box>
