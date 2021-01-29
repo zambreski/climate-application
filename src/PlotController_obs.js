@@ -248,7 +248,7 @@ export default class PlotController extends Component {
     		  // Initialize the metadata for csv data download
     		  for(var i = 0; i < this.state.items.length; i++) {
     			var obj = this.state.items[i];
-    			var dsplit = obj[0] + ":00:00:00:00"
+				var dsplit = obj[0] + " 00:00:00"
     			csvData.push([formatDate(new Date(dsplit)), obj[1]])
     			// for each data point push it to the csvData list.h
     		  }
@@ -260,7 +260,7 @@ export default class PlotController extends Component {
     
               for(var i = 0; i < this.state.items.length; i++) {
                 var obj = this.state.items[i];
-    			var dsplit = obj[0] + ":00:00:00:00"
+    			var dsplit = obj[0] + " 00:00:00"
                 if(obj[1] != 'M' && obj[1] != 'T')
     				{
     				  data.push({x: new Date(dsplit), y: obj[1]});
@@ -335,8 +335,7 @@ export default class PlotController extends Component {
           for(var i = 0; i < this.state.items.length; i++) {
             
 			var obj = this.state.items[i];
-			var dsplit = obj[0] + ":00:00:00:00"
-			
+			var dsplit = obj[0] + " 00:00:00"
 			// Put data into csv vars
 			csvData1.push([formatDate(new Date(dsplit)),obj[1],obj[2],obj[3]])
 			csvData2.push([formatDate(new Date(dsplit)),obj[4],obj[5]])
@@ -551,7 +550,7 @@ export default class PlotController extends Component {
 					type: 'bar',
 							},] 
 					}
-
+		console.log(data3)
 		return (
 		
 			 <html>
