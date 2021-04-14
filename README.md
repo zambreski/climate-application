@@ -1,8 +1,9 @@
+# Kansas Climate Center App
 <p align="center">
   <img src="/doc_img/app_demo.png" width="650" height=300 title="hover text">
 </p>
 
-This application extracts historical climate data for selected cities in Kansas, which can be visualized and downloaded to csv file. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application extracts historical climate data for selected cities in Kansas, which can be visualized and downloaded to csv files. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
