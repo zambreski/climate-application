@@ -1,33 +1,12 @@
 import React, { Component } from 'react';
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, LineSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
-import {
-  makeWidthFlexible,
-} from 'react-vis';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import {getDistrictName} from './Districts';
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
 import loader from './loader.gif';
-import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { getAsic } from './Districts';
 import $ from 'jquery';
 import {CSVLink, CSVDownload } from "react-csv";
-import Chart from 'chart.js';
 import {Line,Bar} from 'react-chartjs-2';
-
-const ONE_DAY = 86400000;
 
 /*
 * This function just formats the date to proper date format.
@@ -59,7 +38,6 @@ function getFormattedDate(date) {
   
   return month + ' ' + day ;
 }
-
 
 
 // Initalize bottom line plot

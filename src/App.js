@@ -98,18 +98,18 @@ class App extends React.Component {
               <Card>
                 <CardContent style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
 
-                  <button style={{ padding: " 15px 20px", background: this.state.b1bgColor, color: "white", fontSize: 35, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton1} >
+                  <button style={{ padding: " 15px 20px", background: this.state.b1bgColor, color: "white", fontSize: 30, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton1} >
                     Observations
                   </button>
 
-                  <button style={{ padding: " 15px 20px", background: this.state.b2bgColor, color: "white", fontSize: 35, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton2}  >
+                  <button style={{ padding: " 15px 20px", background: this.state.b2bgColor, color: "white", fontSize: 30, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton2}  >
                     Satellite
                   </button>
 
-                  <button style={{ padding: " 15px 20px", background: this.state.b3bgColor, color: "white", fontSize: 35, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton3}  >
+                  <button style={{ padding: " 15px 20px", background: this.state.b3bgColor, color: "white", fontSize: 30, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton3}  >
                     Climate change
                   </button>
-                  <button style={{ padding: " 15px 20px", background: this.state.b4bgColor, color: "white", fontSize: 35, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton4}  >
+                  <button style={{ padding: " 15px 20px", background: this.state.b4bgColor, color: "white", fontSize: 30, margin: "20px", borderRadius: "16px" }} onClick={this.selectButton4}  >
                     Forecasting
                  </button>
 

@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, LineSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
-import {
-  makeWidthFlexible,
-} from 'react-vis';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import Box from '@material-ui/core/Box';
 
 import { purple } from '@material-ui/core/colors';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -25,15 +15,9 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
-import { getAsic } from './Districts';
-import GraphRender from './GraphRender2'
 import PlotController from './PlotController_obs'
-import Paper from '@material-ui/core/Paper';
-
 
 const PurpleSwitch = withStyles({
   switchBase: {
@@ -317,9 +301,9 @@ export default class GraphController extends Component {
           {/* This renders the form for input control for the graphs */}
           <FormGroup>
             <Typography component="div">
-              <p style={{textAlign: 'left',fontWeight:'bold',fontSize: 20,marginBottom:"-7px"}}>Variable</p>
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item style={{fontSize: 20}}>Temperature</Grid>
+              <p style={{textAlign: 'center',fontWeight:'bold',fontSize: 20,marginBottom:"-7px"}}>Variable</p>
+              <Grid component="label" justify='center' container alignItems="center" spacing={1}>
+                <Grid item style={{fontSize: 20,textAlign: 'center'}}>Temperature</Grid>
                 <Grid item>
                   <PurpleSwitch
                     checked={this.state.selectedGraphType}
@@ -327,19 +311,19 @@ export default class GraphController extends Component {
                     value={this.state.selectedGraphType}
                   />
                 </Grid>
-                <Grid item style={{fontSize: 20}}>Precipitation</Grid>
+                <Grid item style={{fontSize: 20,textAlign: 'right'}}>Precipitation</Grid>
               </Grid>
             </Typography>
           </FormGroup>
           
           {/* GDD form selection*/}
             <br/>
-            <Grid id="top-row" container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
+            <Grid id="top-row" justify='center' container spacing={0} zeroMinWidth={true} style={{fontSize: 20,marginBottom:"-20px"}} >
               <Grid item xs={2}   >
                  <p style={{textAlign: 'left',fontWeight:'bold',marginBottom:"18px"}}>GDDs</p>
               </Grid>
             </Grid>
-            <Grid id="bottom-row" container spacing={0} zeroMinWidth={true}  style={{fontSize: 20}}>
+            <Grid id="bottom-row" justify='center' container spacing={1} zeroMinWidth={true}  style={{fontSize: 20}}>
               <Grid item >
                   <p style={{textAlign: 'center'}}>Corn</p>
               </Grid>
