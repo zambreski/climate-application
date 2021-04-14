@@ -60,8 +60,9 @@ export default class DataController extends Component {
 	else if (this.props.selectedDataType == 2) {
 		
 		return (
-			<div>
-			<SatelliteController selectedDistrict={this.props.selectedDistrict}></SatelliteController>
+			<div style={{textAlign: 'center',fontSize:24}}>
+				Under construction
+			{/* <SatelliteController selectedDistrict={this.props.selectedDistrict}></SatelliteController> */}
 			</div>
 		);
 	}
