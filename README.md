@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/doc_img/app_demo.png" width="350" title="hover text">
+  <img src="/doc_img/app_demo.png" width="650" height=300 title="hover text">
 </p>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
