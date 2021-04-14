@@ -1,4 +1,9 @@
 # Kansas Climate Center App
+<style>
+img {
+  border: 5px solid #555;
+}
+</style>
 <p align="center">
   <img src="/doc_img/app_demo.png" width="650" height=300 title="hover text">
 </p>
