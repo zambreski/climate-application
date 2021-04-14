@@ -1,7 +1,7 @@
 # Kansas Climate Center App
 
 <p align="center">
-  <img src="/doc_img/app_demo.png" width="650" height=300 title="hover text">
+  <img src="/doc_img/app_demo.png" width="650" height=300 title="hover text" border="1">
 </p>
 
 
